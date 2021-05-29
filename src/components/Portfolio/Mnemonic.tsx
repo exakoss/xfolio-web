@@ -37,7 +37,7 @@ const Mnemonic:React.FC = () => {
         <div style={styles.container}>
             <MnemonicPhraseView phrase={connectedWallet?.mnemonic.phrase}/>
             <div style={styles.buttonContainer}>
-                <TouchableLink text='Set up a password' link='/passwordInput'/>
+                <TouchableLink text='Set up a password' link='/walletDisplay'/>
             </div>
         </div>
     )
