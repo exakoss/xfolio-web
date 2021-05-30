@@ -58,7 +58,7 @@ const WalletDisplay:React.FC = () => {
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
         <div style={styles.container as React.CSSProperties}>
-            <DropdownButton title={currentNetwork} style={styles.dropdownContainer} drop='right'>
+            <DropdownButton title={currentNetwork} style={styles.dropdownContainer} drop='up'>
                 <Dropdown.Item as="button" onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
             </DropdownButton>

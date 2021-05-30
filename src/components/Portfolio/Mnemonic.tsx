@@ -5,6 +5,7 @@ import LoadingScreen from '../LoadingScreen';
 import {setWallet} from '../../reducers/walletReducer';
 import {createConnectedWallet} from '../../utils/ethersTools';
 import TouchableLink from '../common/TouchableLink';
+import theme from '../../theme';
 
 const styles = {
     container: {
@@ -35,9 +36,10 @@ const Mnemonic:React.FC = () => {
     if (isLoading) return <LoadingScreen placeholder='Generating a wallet...'/>
     return(
         <div style={styles.container}>
+            <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Your mnemonic phrase:</h2>
             <MnemonicPhraseView phrase={connectedWallet?.mnemonic.phrase}/>
             <div style={styles.buttonContainer}>
-                <TouchableLink text='Set up a password' link='/walletDisplay'/>
+                <TouchableLink text='Proceed to the wallet' link='/walletDisplay'/>
             </div>
         </div>
     )

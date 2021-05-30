@@ -3,6 +3,7 @@ import {Switch,Route} from 'react-router-dom';
 import Registration from './Portfolio/Registration';
 import Mnemonic from './Portfolio/Mnemonic';
 import WalletDisplay from './Portfolio/WalletDisplay';
+import MnemonicImport from './Portfolio/MnemonicImport';
 import theme from '../theme';
 
 const mainStyle = {
@@ -26,7 +27,7 @@ const Main:React.FC = () => {
                     <WalletDisplay/>
                 </Route>
                 <Route path='/mnemonicImport'>
-
+                    <MnemonicImport/>
                 </Route>
                 <Route path='/login'>
 
