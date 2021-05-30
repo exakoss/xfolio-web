@@ -35,7 +35,7 @@ const MnemonicImport:React.FC = () => {
             <Formik initialValues={{phraseWord:''}} onSubmit={onSubmit}>
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit} style={{display:'flex ',flexDirection:'column'}}>
-                        <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Type in mnemonic phrase:</h2>
+                        <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Type in the mnemonic phrase:</h2>
                         <input
                             name='phraseWorld'
                             type='text'

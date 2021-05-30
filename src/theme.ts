@@ -29,4 +29,15 @@ const theme = {
     }
 }
 
+export const commonStyles = {
+    flexColumn: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    whiteCenteredText: {
+        color:theme.colors.textWhite,
+        textAlign: 'center'
+    }
+}
+
 export default theme
