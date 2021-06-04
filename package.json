@@ -22,8 +22,10 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
+    "redux-persist": "^6.0.0",
     "typescript": "^4.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "@types/react-router": "^5.1.14",
     "@types/react-router-dom": "^5.1.7",
+    "@types/redux-persist": "^4.3.1",
     "redux-devtools-extension": "^2.13.9"
   }
 }

@@ -6,6 +6,8 @@ import WalletDisplay from './Portfolio/WalletDisplay';
 import MnemonicImport from './Portfolio/MnemonicImport';
 import theme from '../theme';
 import BridgeETH from './BridgeETH';
+import Login from './Portfolio/Login';
+import SetPassword from './Portfolio/SetPassword';
 
 const mainStyle = {
     display: 'flex',
@@ -34,10 +36,10 @@ const Main:React.FC = () => {
                     <MnemonicImport/>
                 </Route>
                 <Route path='/login'>
-
+                    <Login/>
                 </Route>
-                <Route path='/passwordInput'>
-
+                <Route path='/setPassword'>
+                    <SetPassword/>
                 </Route>
                 <Route exact path='/'>
                     <Registration/>
