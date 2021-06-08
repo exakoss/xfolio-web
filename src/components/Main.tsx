@@ -21,7 +21,7 @@ const mainStyle = {
 
 const Main:React.FC = () => {
     return (
-        <div style={mainStyle as React.CSSProperties}>
+        <div style={mainStyle as React.CSSProperties} id='mainContainer'>
             <Switch>
                 <Route path='/mnemonic'>
                     <Mnemonic/>
