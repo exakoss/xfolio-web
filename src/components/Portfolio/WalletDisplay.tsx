@@ -9,6 +9,7 @@ import {Network} from '../../types';
 import {setWallet} from '../../reducers/walletReducer';
 import TouchableLink from '../common/TouchableLink';
 import PopupMenu from '../PopupMenu';
+import {useETHPrice} from '../../graphql/uniQueries';
 
 const styles = {
     container: {
@@ -32,10 +33,10 @@ const styles = {
 const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
-    console.log(wallet)
     const [currentBalance,setCurrentBalance] = useState<number>(0)
     const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
     const [isLoading,setIsLoading] = useState<boolean>(true)
+    const {data, status, error} = useETHPrice()
 
     useEffect(() => {
         const updateWalletNetwork = () => {
@@ -55,8 +56,6 @@ const WalletDisplay:React.FC = () => {
         setIsLoading(false)
     },[wallet])
 
-
-
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
             <div style={styles.container as React.CSSProperties} id='innerContainer'>
@@ -72,6 +71,14 @@ const WalletDisplay:React.FC = () => {
                             alert('Wallet address copied!')
                     }}>{wallet.address.slice(0,15) + '...'}</div>
                     <div style={styles.mainText as React.CSSProperties}>{currentBalance} ETH</div>
+                    {/*//Displaying current Price of ETH*/}
+                    {status === 'loading' ? (
+                        'Loading'
+                    ) : status === 'error' ? (
+                        'loading'
+                    ) : (
+                        <div style={styles.mainText as React.CSSProperties}>{data}</div>
+                    )}
                 </div>
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <TouchableLink text='Bridge ETH' link='/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
