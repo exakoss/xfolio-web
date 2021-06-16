@@ -8,6 +8,7 @@ import theme from '../theme';
 import BridgeETH from './BridgeETH';
 import Login from './Portfolio/Login';
 import SetPassword from './Portfolio/SetPassword';
+import Search from './Search';
 
 const mainStyle = {
     display: 'flex',
@@ -40,6 +41,9 @@ const Main:React.FC = () => {
                 </Route>
                 <Route path='/setPassword'>
                     <SetPassword/>
+                </Route>
+                <Route path='/search'>
+                    <Search/>
                 </Route>
                 <Route exact path='/'>
                     <Registration/>

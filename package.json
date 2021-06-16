@@ -11,6 +11,7 @@
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
     "arb-ts": "0.0.13",
+    "dayjs": "^1.10.5",
     "dotenv": "^10.0.0",
     "ethers": "^5.2.0",
     "formik": "^2.2.8",
@@ -34,7 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +57,10 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.21.5",
+    "@graphql-codegen/typescript": "1.22.1",
+    "@graphql-codegen/typescript-operations": "^1.18.0",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.5",
     "@types/react-burger-menu": "^2.8.0",
     "@types/react-router": "^5.1.14",
     "@types/react-router-dom": "^5.1.7",

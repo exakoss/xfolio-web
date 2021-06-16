@@ -37,7 +37,39 @@ export const commonStyles = {
     whiteCenteredText: {
         color:theme.colors.textWhite,
         textAlign: 'center'
-    }
+    },
+    textPlaceholder: {
+        color: theme.colors.textWhite,
+        fontSize: theme.fontsize.big,
+        textAlign: "center"
+    },
+    tile:{
+        backgroundColor: theme.colors.background,
+        display: 'flex',
+        borderRadius: '10px',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    tileText: {
+        color: theme.colors.textWhite,
+        fontSize: theme.fontsize.normal
+    },
+    nameText: {
+        color: theme.colors.textSecondary,
+        fontSize: theme.fontsize.small,
+    },
+    positivePercentage: {
+        color: theme.colors.green,
+        fontSize: theme.fontsize.normal
+    },
+    negativePercentage: {
+        color: theme.colors.warning,
+        fontSize: theme.fontsize.normal
+    },
+    nameContainer: {
+        display: "flex",
+        flexDirection:"column"
+    },
 }
 
 export default theme
