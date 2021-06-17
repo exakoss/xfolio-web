@@ -2,8 +2,31 @@ import {useQuery} from 'react-query';
 import {gql} from 'graphql-request';
 import {uniClient} from './clients';
 import {parsePriceToFixedNumber, transformUNIQuotesToTokenListEntry} from '../utils';
-import {Id, BasicToken} from '../types'
+import {Id, BasicToken, GetBlockProp} from '../types'
+import {getBlockNumber} from './blockQueries';
 
+//Fetching functions
+const getETHPrice = async (blockNumber?: number):Promise<number> => {
+  const query = blockNumber
+    ? gql`
+              query bundles {
+                  bundles(where: { id: 1 } block: {number: ${blockNumber}}) {
+                      ethPrice
+                  }
+              }
+      `
+    : gql`
+              query bundles {
+                  bundles(where: { id: 1 }) {
+                      ethPrice
+                  }
+              }
+      `
+    const {bundles} = await uniClient.request(query)
+    return parsePriceToFixedNumber(bundles[0].ethPrice)
+}
+
+//Queries
 export const useETHPrice = (blockNumber?: number) => {
     return useQuery(['ethPrice',blockNumber], async () => {
         const query = blockNumber
@@ -69,8 +92,10 @@ export const useUniTokensBlockPricesById = (tokens:string[],blockNumber:number) 
     })
 }
 
-export const useUniTokensByNameForTokenlist = (contains:string,blockNumber:number,currentEthPrice:number,enabled:boolean) => {
-    return useQuery(['uniTokensByNameForTokenlist',contains,blockNumber], async () => {
+export const useUniTokensByNameForTokenlist = (contains:string,period:GetBlockProp) => {
+    return useQuery(['uniTokensByNameForTokenlist',contains,period], async () => {
+        const blockNumber = await getBlockNumber(period)
+        const currentEthPrice = await getETHPrice()
         if (contains === '') return []
         const nameTokensQuery = gql`
             query findTokens {
@@ -107,7 +132,6 @@ export const useUniTokensByNameForTokenlist = (contains:string,blockNumber:numbe
         console.log(tokensPast)
         return transformUNIQuotesToTokenListEntry(nameTokens,tokensPast,bundles,currentEthPrice)
     },{
-        enabled: enabled,
         initialData: []
     })
 }

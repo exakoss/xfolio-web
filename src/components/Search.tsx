@@ -1,25 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import {Formik,Field,Form, useFormikContext} from 'formik';
+import {Formik,Field,Form} from 'formik';
 import theme,{commonStyles} from '../theme';
 import TokenList from './TokenList';
-import {useETHPrice, useUniTokensByNameForTokenlist} from '../graphql/uniQueries';
-import {useBlockNumber} from '../graphql/blockQueries';
+import {useUniTokensByNameForTokenlist} from '../graphql/uniQueries';
 import PopupMenu from './PopupMenu';
 
 const Search:React.FC = () => {
     const [filter,setFilter] = useState<string>('')
-    const [isLoading,setIsLoading] = useState<boolean>(false)
-    const {data: ethData , status: ethStatus} = useETHPrice()
-    const {data: blockData , status: blockStatus} = useBlockNumber('ONE_DAY')
-    //@ts-ignore
-    const {data: tokensByNameData,status:tokensByNameStatus} = useUniTokensByNameForTokenlist(filter,blockData,ethData,(!!ethData && !!blockData))
+    const {data: tokensByNameData, status:tokensByNameStatus} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
     console.log(tokensByNameData)
-
-    useEffect(() => {
-        (tokensByNameStatus === 'loading')
-            ? setIsLoading(true)
-            : setIsLoading(false)
-    },[tokensByNameStatus])
 
     useEffect(() => {
         console.log(filter)
@@ -36,8 +25,7 @@ const Search:React.FC = () => {
                 <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{fontSize: theme.fontsize.large, marginBottom:theme.distance.normal}}
                     onKeyUp={handleChange}
                 />
-                {/*@ts-ignore*/}
-                <TokenList tokens={tokensByNameData} placeholder={'Tokenlist is empty'} isLoading={isLoading}/>
+                <TokenList tokens={tokensByNameData as Array<any>} placeholder={'Tokenlist is empty'} isLoading={(tokensByNameStatus === 'loading')}/>
             </Form>
         </Formik>
     )

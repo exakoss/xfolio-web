@@ -40,7 +40,9 @@ const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading}) => {
     return(
         <div style={{overflowY:"auto"}}>
             {tokens.map(token => {
-                return <TokenListTile token={token} key={token.name}/>
+                // Since keys have to be unique, we concat a random float to the token.description to ensure the uniqueness
+                // If a cheaper method is available, change it
+                return <TokenListTile token={token} key={token.description.concat(String(Math.random()))}/>
             })}
         </div>
     )
