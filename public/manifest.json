@@ -3,7 +3,6 @@
   "name": "Xfolio Web",
   "description": "Bringing superior DeFi experience to your browser",
   "version": "0.1.3",
-
   "browser_action": {
     "default_popup": "index.html",
     "default_title": "Open the popup"
@@ -13,5 +12,15 @@
   },
   "content_security_policy": "script-src 'self' 'sha256-TXGCp+wOzSsXfcahAikZHgOxIpn9fEzNuYBnvJBCp+k=';object-src 'self'",
   "permissions": [
+    "tabs","<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_end",
+      "js": ["inject.js"]
+    }
   ]
 }

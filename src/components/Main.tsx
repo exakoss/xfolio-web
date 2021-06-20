@@ -9,6 +9,8 @@ import BridgeETH from './BridgeETH';
 import Login from './Portfolio/Login';
 import SetPassword from './Portfolio/SetPassword';
 import Search from './Search';
+import LoadingScreen from './LoadingScreen';
+import Watchlist from './Watchlist';
 
 const mainStyle = {
     display: 'flex',
@@ -36,6 +38,9 @@ const Main:React.FC = () => {
                 <Route path='/mnemonicImport'>
                     <MnemonicImport/>
                 </Route>
+                <Route path='/watchlist'>
+                    <Watchlist/>
+                </Route>
                 <Route path='/login'>
                     <Login/>
                 </Route>
@@ -44,6 +49,9 @@ const Main:React.FC = () => {
                 </Route>
                 <Route path='/search'>
                     <Search/>
+                </Route>
+                <Route path='/loadingScreen'>
+                    <LoadingScreen placeholder={"sample"}/>
                 </Route>
                 <Route exact path='/'>
                     <Registration/>

@@ -2,8 +2,10 @@ import React from 'react'
 import {TokenListEntry} from '../types';
 import LoadingScreen from './LoadingScreen';
 import theme, {commonStyles} from '../theme';
-import {toMoney} from '../utils';
+import {toMoney, isTokenListEntryIncluded, transformTokenListEntryToWatchlistEntry} from '../utils';
 import PercentageChange from './common/PercentageChange';
+import {useDispatch, useSelector,RootStateOrAny} from 'react-redux';
+import {removeWatchlistEntry,addWatchlistEntry} from '../reducers/watchlistReducer';
 
 interface Props {
     tokens: TokenListEntry[],
@@ -11,10 +13,22 @@ interface Props {
     isLoading: boolean
 }
 
-
+const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({token,isIncluded}) => {
+    const dispatch = useDispatch()
+    if (isIncluded) {
+        return (
+            <button style={{backgroundColor: 'red'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}>X</button>
+        )
+    } else {
+        return (
+            <button style={{backgroundColor: 'green'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}>+</button>
+        )
+    }
+}
 
 const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
-
+    const watchlistEntries = useSelector((state:RootStateOrAny) => state.watchlist.watchlistEntries)
+    const isIncluded:boolean = isTokenListEntryIncluded(token,watchlistEntries)
     return (
         <div style={commonStyles.tile as React.CSSProperties}>
             <div style={commonStyles.nameContainer as React.CSSProperties}>
@@ -24,6 +38,7 @@ const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
             <div style={commonStyles.tileText}> {toMoney(token.formattedRate,3)}</div>
             {(token.quantity) ? <div style={commonStyles.tileText}>{token.quantity.toFixed(3)}</div> : null}
             <PercentageChange currentValue={token.formattedRate} previousValue={token.formattedRateDaily}/>
+            <AddDeleteButton token={token} isIncluded={isIncluded}/>
         </div>
     )
 }
@@ -38,7 +53,7 @@ const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading}) => {
         </div>
     </div>
     return(
-        <div style={{overflowY:"auto"}}>
+        <div style={{overflowY:"auto", width:"380px"}}>
             {tokens.map(token => {
                 // Since keys have to be unique, we concat a random float to the token.description to ensure the uniqueness
                 // If a cheaper method is available, change it

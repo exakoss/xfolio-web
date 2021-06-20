@@ -1,4 +1,4 @@
-import {TokenListEntry, BasicToken, TokenEntry, Bundle} from '../types';
+import {TokenListEntry, BasicToken, TokenEntry, Bundle, WatchlistEntry} from '../types';
 import {GetBlockProp} from '../types'
 import dayjs from 'dayjs';
 
@@ -41,6 +41,33 @@ export const transformUNIQuotesToTokenListEntry = (tokensNow:BasicToken[],tokens
             formattedRateDaily: calculateETHPrice(t2.derivedETH,dailyETHPriceInUSD),
         }
     })
+}
+
+export const isTokenListEntryIncluded = (entry:TokenListEntry, watchlistEntries:WatchlistEntry[]):boolean => {
+    // const watchlistEntries = store.getState().watchlist.watchlistEntries
+    switch (entry.dataSource) {
+        case 'SYNTH':
+            return watchlistEntries.some((e) => e.id === entry.name)
+        case 'UNI':
+            return watchlistEntries.some((e) => e.id === entry.address)
+        default:
+            return false
+    }
+}
+
+export const transformTokenListEntryToWatchlistEntry = (tokenListEntry:TokenListEntry):WatchlistEntry => {
+    switch (tokenListEntry.dataSource) {
+        case 'UNI':
+            return {
+                dataSource: 'UNI',
+                id: tokenListEntry.address as string
+            }
+        case 'SYNTH':
+            return {
+                dataSource: 'SYNTH',
+                id: tokenListEntry.name
+            }
+    }
 }
 
 //Parsing and calculating functions

@@ -49,49 +49,6 @@ export const useETHPrice = (blockNumber?: number) => {
     })
 }
 
-export const useUniTokensByName = (contains:string) => {
-    return useQuery(['uniTokensByName',contains], async () => {
-        const query = gql`
-            query findTokens {
-                tokens(where: {symbol_contains: ${contains}, derivedETH_gt: 0.0000001, totalLiquidity_gt: 5}, first:50, orderBy: txCount, orderDirection: desc) {
-                    symbol,
-                    name,
-                    id,
-                    derivedETH
-                }
-            }
-        `
-        const {tokens} = await uniClient.request(query)
-        return tokens
-    })
-}
-
-export const useUniTokensBlockPricesById = (tokens:string[],blockNumber:number) => {
-    return useQuery(['uniTokensBlockPricesById',tokens,blockNumber],async () => {
-       const query = gql`
-            query uniTokensBlockPricesById {
-                tokens(
-                    where: {id_in: $tokenIds},
-                    block: {number: $blockNumber},
-                    orderBy: txCount,
-                    orderDirection: desc
-                ) {
-                    id,
-                    derivedETH
-                }
-                bundles(
-                    where: {id: "1"}
-                    block: {number: $blockNumber}
-                ) {
-                    ethPrice
-                }
-            }
-       `
-      const {tokens, bundles} = await uniClient.request(query)
-      return {tokens, bundles}
-    })
-}
-
 export const useUniTokensByNameForTokenlist = (contains:string,period:GetBlockProp) => {
     return useQuery(['uniTokensByNameForTokenlist',contains,period], async () => {
         const blockNumber = await getBlockNumber(period)
@@ -109,7 +66,7 @@ export const useUniTokensByNameForTokenlist = (contains:string,period:GetBlockPr
         `
         const {tokens: nameTokens} : {tokens: BasicToken[]} = await uniClient.request(nameTokensQuery)
         const tokenIds: Id[] = nameTokens.map(token => token.id)
-        const idTokensQuery = gql`
+        const idTokenPricesQuery = gql`
             query uniTokensBlockPricesById($tokenIds: [String!]) {
                 tokens(
                     where: {id_in: $tokenIds},
@@ -128,9 +85,55 @@ export const useUniTokensByNameForTokenlist = (contains:string,period:GetBlockPr
                 }
             }
         `
-        const {tokens:tokensPast, bundles} = await uniClient.request(idTokensQuery, {tokenIds:tokenIds})
+        const {tokens:tokensPast, bundles} = await uniClient.request(idTokenPricesQuery, {tokenIds:tokenIds})
         console.log(tokensPast)
         return transformUNIQuotesToTokenListEntry(nameTokens,tokensPast,bundles,currentEthPrice)
+    },{
+        initialData: []
+    })
+}
+
+export const useUniTokensByIDsForTokenList = (tokenIds:Id[],period:GetBlockProp) => {
+    return useQuery(['uniTokensByIDsForTokenList',tokenIds,period], async () => {
+        const blockNumber = await getBlockNumber(period)
+        const currentEthPrice = await getETHPrice()
+        if (tokenIds.length === 0) return []
+        const idTokensQuery = gql`
+            query uniTokensById($tokenIds: [String!]) {
+                tokens(
+                    where: {id_in: $tokenIds},
+                    orderBy: txCount,
+                    orderDirection: desc)
+                {
+                    symbol,
+                    name,
+                    id,
+                    derivedETH
+                }
+            }
+        `
+        const {tokens: idTokens} = await uniClient.request(idTokensQuery,{tokenIds:tokenIds})
+        const idTokenPricesQuery = gql`
+          query uniTokensBlockPricesById($tokenIds: [String!]) {
+              tokens(
+                  where: {id_in: $tokenIds},
+                  block: {number: ${blockNumber}},
+                  orderBy: txCount,
+                  orderDirection: desc
+              ) {
+                  id,
+                  derivedETH
+              }
+              bundles(
+                  where: {id: "1"}
+                  block: {number: ${blockNumber}}
+              ) {
+                  ethPrice
+              }
+          }
+      `
+        const {tokens:tokensPast, bundles} = await uniClient.request(idTokenPricesQuery, {tokenIds:tokenIds})
+        return transformUNIQuotesToTokenListEntry(idTokens,tokensPast,bundles,currentEthPrice)
     },{
         initialData: []
     })
