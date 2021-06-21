@@ -75,11 +75,6 @@ const Menu:React.FC<{close:any}> = ({close}) => {
                         Watchlist
                     </NavLink>
                 </li>
-                <li style = {styles.menuListPoint}>
-                    <NavLink onClick={close} to="/loadingScreen">
-                        Loading Screen
-                    </NavLink>
-                </li>
             </ul>
         </div>
     )

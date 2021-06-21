@@ -8,12 +8,7 @@ import {TokenListEntry} from '../types';
 
 const Search:React.FC = () => {
     const [filter,setFilter] = useState<string>('')
-    const {data: tokensByNameData, status:tokensByNameStatus} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
-    console.log(tokensByNameData)
-
-    useEffect(() => {
-        console.log(filter)
-    }, [filter])
+    const {data: tokensByNameData, isFetching} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
 
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>): void => {
         setFilter(e.target.value)
@@ -23,10 +18,11 @@ const Search:React.FC = () => {
         <Formik initialValues={{filterValue:''}} onSubmit={() => {}}>
             <Form style={{...commonStyles.flexColumn as React.CSSProperties,height: '85%', justifyContent:'start', marginTop: '15%', width:'380px'}}>
                 <PopupMenu/>
-                <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{fontSize: theme.fontsize.large, marginBottom:theme.distance.normal}}
+                <Field name='filterValue' placeholder='Input ticker here...'
+                       type='text' style={{fontSize: theme.fontsize.large, marginBottom:theme.distance.normal}}
                     onKeyUp={handleChange}
                 />
-                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={(tokensByNameStatus === 'loading')}/>
+                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={isFetching}/>
             </Form>
         </Formik>
     )

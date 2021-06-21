@@ -9,12 +9,12 @@ const Watchlist:React.FC = () => {
 
     const watchlistEntries:WatchlistEntry[] = useSelector((state:RootStateOrAny) => state.watchlist.watchlistEntries)
     const tokenIds: Id[] = watchlistEntries.map(e => e.id)
-    const {data: tokensByIDsData, status:tokensByIDsStatus} = useUniTokensByIDsForTokenList(tokenIds,'ONE_DAY')
+    const {data: tokensByIDsData, isFetching} = useUniTokensByIDsForTokenList(tokenIds,'ONE_DAY')
 
     return (
         <div>
             <PopupMenu/>
-            <TokenList tokens={tokensByIDsData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={(['idle','loading'].includes(tokensByIDsStatus))}/>
+            <TokenList tokens={tokensByIDsData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={isFetching}/>
         </div>
     )
 }
