@@ -11,9 +11,10 @@ import SetPassword from './Portfolio/SetPassword';
 
 const mainStyle = {
     display: 'flex',
+    flexDirection: 'column',
     position: 'relative',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     height: '500px',
     width: '400px',
     backgroundColor: theme.colors.background,
@@ -22,6 +23,7 @@ const mainStyle = {
 const Main:React.FC = () => {
     return (
         <div style={mainStyle as React.CSSProperties} id='mainContainer'>
+            
             <Switch>
                 <Route path='/mnemonic'>
                     <Mnemonic/>
