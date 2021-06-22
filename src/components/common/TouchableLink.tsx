@@ -8,7 +8,6 @@ const buttonStyle = {
     marginBottom: theme.distance.big,
     fontSize: theme.fontsize.large,
     borderRadius: theme.distance.tiny,   
-    backgroundColor: theme.colors.primary,
     hover: theme.colors.primaryLight
     // background: '#5827B8',
     // backgroundMozLinearGradient: 'top, #5827B8 0%, #02387D 50%, #0077B6 100%',

@@ -9,17 +9,6 @@ import PopupMenu from './PopupMenu';
 import theme from '../theme';
 import { transform } from 'typescript';
 
-// const mainStyle = {
-//     display: 'flex',
-//     flexDirection: 'columns',
-//     position: 'relative',
-//  //   alignItems: 'center',
-//     justifyContent: 'center',
-//     height: '500px',
-//     width: '400px',
-//     backgroundColor: theme.colors.background,
-// }
-
 const headerStyle = {
     display: 'flex',
     justifyContent: 'center',

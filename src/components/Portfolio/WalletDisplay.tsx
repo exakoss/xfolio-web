@@ -10,6 +10,7 @@ import {setWallet} from '../../reducers/walletReducer';
 import TouchableLink from '../common/TouchableLink';
 import PopupMenu from '../PopupMenu';
 import Header from '../Header';
+import { useETHPrice } from '../../graphql/uniQueries';
 
 
 const styles = {
@@ -34,10 +35,10 @@ const styles = {
 const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
-    console.log(wallet)
     const [currentBalance,setCurrentBalance] = useState<number>(0)
     const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
     const [isLoading,setIsLoading] = useState<boolean>(true)
+    const {data, status, error} = useETHPrice()
 
     // useEffect(() => {
     //     const updateWalletNetwork = () => {
@@ -57,19 +58,20 @@ const WalletDisplay:React.FC = () => {
         setIsLoading(false)
     },[wallet])
 
-
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
             <div style={styles.container as React.CSSProperties} id='innerContainer'>
                 <PopupMenu/>
-                <Header/>
+                {/* <div style={{justifyContent:'flex-start'}}> */}
+                    <Header/>
+                {/* </div> */}
                 {/* <div style={{justifyContent:'center'}}> */}
                     <div>
                         <div style={{...styles.mainText as React.CSSProperties,cursor:'pointer', marginTop: '10px'}}
                             onClick={() => {
                                 navigator.clipboard.writeText(wallet.address)
                                 alert('Wallet address copied!')
-                        }}>{wallet.address.slice(0,15) + '...'}</div>
+                        }}>{wallet.address.slice(0,6) + '..'}</div>
                         <div style={styles.mainText as React.CSSProperties}>{currentBalance} ETH</div>
                     </div>
                     <div style={{display:'flex',justifyContent:'center', fontFamily:theme.fontLink.fontFamilyLabel}}>

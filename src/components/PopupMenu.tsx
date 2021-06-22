@@ -67,18 +67,18 @@ const Menu:React.FC<{close:any}> = ({close}) => {
                     </NavLink>
                 </li>
                 <li style = {styles.menuListPoint}>
-                    <NavLink onClick={close} to="/walletDisplay">
-                        Tokens
+                    <NavLink onClick={close} to="/search">
+                        Token Search
                     </NavLink>
                 </li>
                 <li style = {styles.menuListPoint}>
-                    <NavLink onClick={close} to="/walletDisplay">
+                    <NavLink onClick={close} to="/watchlist">
                         Watchlist
                     </NavLink>
                 </li>
                 <li style = {styles.menuListPoint}>
-                    <NavLink onClick={close} to="/walletDisplay">
-                        Synthetix
+                    <NavLink onClick={close} to="/loadingScreen">
+                        Loading Screen
                     </NavLink>
                 </li>
             </ul>

@@ -5,6 +5,7 @@ import {Synth} from '@synthetixio/js';
 export type Id = string
 export type DataSource = 'UNI' | 'SYNTH'
 export type Network = 'KOVAN' | 'ARBITRUM_KOVAN' | 'MAINNET'
+export type GetBlockProp = 'ONE_DAY' | 'TWO_DAYS' | 'CURRENT_DAY'
 
 export interface IdEntry {
     id:Id
@@ -78,14 +79,14 @@ export interface TokenData {
     tokens: BasicToken[]
 }
 
-export interface DailyTokenData {
+export interface PastTokenData {
     tokens: TokenEntry[],
     bundles: Bundle[]
 }
 
 export interface UnitedTokenData {
     tokenData: TokenData,
-    dailyTokenData: DailyTokenData
+    pastTokenData: PastTokenData
 }
 
 export interface ExtendedTokenData {
