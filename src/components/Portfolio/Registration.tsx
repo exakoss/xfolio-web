@@ -7,9 +7,9 @@ const Registration:React.FC = () => {
 
     return(
         <div className='registration' style={{display:'flex',flexDirection:'column',height:'100%',justifyContent:'center'}}>
-            <TouchableLink text='Log in' link='login' disabled={(jsonSeed === '')}/>
-            <TouchableLink text='Import a wallet' link='mnemonicImport'/>
-            <TouchableLink text='Create a new wallet' link='mnemonic'/>
+            <TouchableLink text='Log in' link='/authorization/login' disabled={(jsonSeed === '')}/>
+            <TouchableLink text='Import a wallet' link='/authorization/mnemonicImport'/>
+            <TouchableLink text='Create a new wallet' link='/authorization/mnemonic'/>
         </div>
     )
 }

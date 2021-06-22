@@ -81,7 +81,7 @@ const WalletDisplay:React.FC = () => {
                     )}
                 </div>
                 <div style={{display:'flex',justifyContent:'center'}}>
-                    <TouchableLink text='Bridge ETH' link='/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
+                    <TouchableLink text='Bridge ETH' link='/main/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
                 </div>
             </div>
     )

@@ -45,7 +45,7 @@ const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
 
 const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading}) => {
     //If data is loading we return the loading screen
-    if (isLoading) return <LoadingScreen placeholder='Loading token data...'/>
+    if (isLoading) return <LoadingScreen placeholder='Loading data...'/>
     //If the array of tokens empty, e.g. the searchbar is clean, we display a placeholder
     if (tokens.length === 0) return <div style={commonStyles.flexColumn as React.CSSProperties}>
         <div style={{color:theme.colors.textWhite, textAlign: 'center', fontSize: theme.fontsize.large}}>

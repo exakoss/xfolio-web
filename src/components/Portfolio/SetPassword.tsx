@@ -15,7 +15,7 @@ const SetPassword:React.FC = () => {
             const jsonSeed = await wallet.encrypt(password)
             console.log(JSON.parse(jsonSeed))
             dispatch(setSeed(jsonSeed))
-            history.push('/walletDisplay')
+            history.push('/main')
         }
         catch (e) {
             console.error(e)
