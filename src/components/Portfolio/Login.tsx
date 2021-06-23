@@ -16,7 +16,7 @@ const Login:React.FC = () => {
             const generatedWallet = await ethers.Wallet.fromEncryptedJson(jsonSeed,password)
             const wallet = connectWalletToNetwork(generatedWallet,'KOVAN')
             dispatch(setWallet(wallet))
-            history.push('/walletDisplay')
+            history.push('/main')
         }
         catch (e) {
             console.error(e)

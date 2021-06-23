@@ -9,6 +9,8 @@ import {Network} from '../../types';
 import {setWallet} from '../../reducers/walletReducer';
 import TouchableLink from '../common/TouchableLink';
 import PopupMenu from '../PopupMenu';
+import {useETHPrice} from '../../graphql/uniQueries';
+import {toMoney} from '../../utils'
 
 const styles = {
     container: {
@@ -26,16 +28,21 @@ const styles = {
         color:theme.colors.textWhite,
         fontSize: theme.fontsize.big,
         textAlign: 'center'
+    },
+    secondaryText: {
+        color:theme.colors.textSecondary,
+        fontSize: theme.fontsize.big,
+        textAlign: 'center'
     }
 }
 
 const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
-    console.log(wallet)
     const [currentBalance,setCurrentBalance] = useState<number>(0)
     const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
     const [isLoading,setIsLoading] = useState<boolean>(true)
+    const {data:ethPriceData, isFetching} = useETHPrice()
 
     useEffect(() => {
         const updateWalletNetwork = () => {
@@ -55,8 +62,6 @@ const WalletDisplay:React.FC = () => {
         setIsLoading(false)
     },[wallet])
 
-
-
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
             <div style={styles.container as React.CSSProperties} id='innerContainer'>
@@ -72,9 +77,15 @@ const WalletDisplay:React.FC = () => {
                             alert('Wallet address copied!')
                     }}>{wallet.address.slice(0,15) + '...'}</div>
                     <div style={styles.mainText as React.CSSProperties}>{currentBalance} ETH</div>
+                    {/*//Displaying current Balance in USD*/}
+                    { !isFetching ? (
+                        //@ts-ignore
+                        <div style={styles.secondaryText as React.CSSProperties}>{toMoney(currentBalance*ethPriceData,2)}</div>
+                    ) : null
+                    }
                 </div>
                 <div style={{display:'flex',justifyContent:'center'}}>
-                    <TouchableLink text='Bridge ETH' link='/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
+                    <TouchableLink text='Bridge ETH' link='/main/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
                 </div>
             </div>
     )
