@@ -7,7 +7,6 @@ import {setWallet} from '../reducers/walletReducer';
 import {Network} from '../types';
 import PopupMenu from './PopupMenu';
 import theme from '../theme';
-import { transform } from 'typescript';
 
 const headerStyle = {
     display: 'flex',
@@ -19,6 +18,7 @@ const headerStyle = {
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
     borderBottomColor: theme.colors.white,
+    zIndex: '2',
 
     dropdownContainer: {
         display: 'flex',
@@ -30,28 +30,30 @@ const Header:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
     const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
-    
+
     useEffect(() => {
+        if (wallet === undefined) {
         const updateWalletNetwork = () => {
             const updatedWallet = connectWalletToNetwork(wallet,currentNetwork)
             dispatch(setWallet(updatedWallet))
         }
         updateWalletNetwork()
+    }
     },[currentNetwork])
-   //style={{transform:'translate(-38px, 40px)'}}  moving the dropdown menu 
-
-    return (
-
-        <div style={headerStyle as React.CSSProperties} id='headerContainer'> 
-            <div>
-                <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='up'>
-                    <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
-                    <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
-                </DropdownButton>
+    
+//    style={{transform:'translate(-38px, 40px)'}}  moving the dropdown menu 
+    
+        return (
+            <div style={headerStyle as React.CSSProperties} id='headerContainer'> 
+                <div>
+                    <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='up'>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
+                    </DropdownButton>
+                </div>
             </div>
-        </div>
-        
-    )
+        )
+    
 }
 
 export default Header

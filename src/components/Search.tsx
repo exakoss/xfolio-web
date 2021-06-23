@@ -6,6 +6,8 @@ import {useUniTokensByNameForTokenlist} from '../graphql/uniQueries';
 import PopupMenu from './PopupMenu';
 import {TokenListEntry} from '../types';
 
+
+
 const Search:React.FC = () => {
     const [filter,setFilter] = useState<string>('')
     const {data: tokensByNameData, status:tokensByNameStatus} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
@@ -18,15 +20,17 @@ const Search:React.FC = () => {
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>): void => {
         setFilter(e.target.value)
     }
-
+// style={{fontFamily: theme.fontLink.fontFamilyLabel, fontSize: theme.fontSize.large}}
     return(
         <Formik initialValues={{filterValue:''}} onSubmit={() => {}}>
             <Form style={{...commonStyles.flexColumn as React.CSSProperties,height: '85%', justifyContent:'start', marginTop: '15%', width:'380px'}}>
                 <PopupMenu/>
-                <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{fontSize: theme.fontsize.large, marginBottom:theme.distance.normal}}
+                <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{...commonStyles.textBox as React.CSSProperties, marginBottom:theme.distance.normal}}
                     onKeyUp={handleChange}
                 />
-                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={(tokensByNameStatus === 'loading')}/>
+                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} 
+                  isLoading={(tokensByNameStatus === 'loading')}
+                />
             </Form>
         </Formik>
     )

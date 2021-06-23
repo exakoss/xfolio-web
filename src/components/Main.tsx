@@ -11,6 +11,7 @@ import SetPassword from './Portfolio/SetPassword';
 import Search from './Search';
 import LoadingScreen from './LoadingScreen';
 import Watchlist from './Watchlist';
+import Header from './Header';
 
 
 const mainStyle = {
@@ -27,8 +28,7 @@ const mainStyle = {
 const Main:React.FC = () => {
     return (
         <div style={mainStyle as React.CSSProperties} id='mainContainer'>
-        
-
+          
             <Switch>
                 <Route path='/mnemonic'>
                     <Mnemonic/>

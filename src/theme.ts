@@ -89,6 +89,26 @@ export const commonStyles = {
         display: "flex",
         flexDirection:"column"
     },
+    largeButton: {
+        width:'300px', 
+        boxShadow: '0 0 50px rgba(255, 255, 255, 0.5)',
+        fontFamily: theme.fontLink.fontFamilyLabel, 
+        fontSize: theme.fontsize.large
+    },
+    normalButton: {
+        fontFamily:theme.fontLink.fontFamilyText,
+        fontSize: theme.fontsize.extraSmall,
+        
+        
+    },
+    textBox: {
+        fontFamily: theme.fontLink.fontFamilyText,
+        fontSize: theme.fontsize.small, 
+        marginBottom:theme.distance.normal,
+        height:theme.distance.extraLarge, 
+        marginTop:theme.distance.normal
+
+    }
 }
 
 export default theme

@@ -21,6 +21,20 @@ const styles = {
       flexDirection:'column',
       justifyContent:'space-around',
     },
+    headerContainer:{
+        display:'flex',
+        flexDirection: 'row',
+        justifyContent:'space-around',
+        alignContent: 'center',
+        height: '15%'
+    },
+    walletContainer:{
+        display:'flex',
+        flexDirection:'column',
+        height: '85%',
+        justifyContent:'space-around',
+
+    },
     dropdownContainer: {
         display: 'flex',
         justifyContent: 'center'
@@ -60,12 +74,13 @@ const WalletDisplay:React.FC = () => {
 
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
-            <div style={styles.container as React.CSSProperties} id='innerContainer'>
-                <PopupMenu/>
-                {/* <div style={{justifyContent:'flex-start'}}> */}
+       // <div style={styles.container as React.CSSProperties} id='innerContainer'></div>
+            <React.Fragment>
+                <div style={styles.headerContainer as React.CSSProperties} id='innerHeader'> 
+                    <PopupMenu/>
                     <Header/>
-                {/* </div> */}
-                {/* <div style={{justifyContent:'center'}}> */}
+                 </div>
+                <div style={styles.walletContainer as React.CSSProperties} id='walletContent'>
                     <div>
                         <div style={{...styles.mainText as React.CSSProperties,cursor:'pointer', marginTop: '10px'}}
                             onClick={() => {
@@ -78,8 +93,8 @@ const WalletDisplay:React.FC = () => {
                         <TouchableLink style={{width:'170px', boxShadow: '0 0 50px rgba(255, 255, 255, 0.5)'}} 
                         text='Bridge ETH' link='/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
                     </div>
-                {/* </div> */}
-            </div>
+                </div>
+            </React.Fragment>
     )
 }
 
