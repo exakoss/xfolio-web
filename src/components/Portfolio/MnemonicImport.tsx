@@ -27,7 +27,7 @@ const MnemonicImport:React.FC = () => {
         setIsLoading(true)
         const newWallet = createWalletFromMnemonic(currentPhrase,'KOVAN')
         dispatch(setWallet(newWallet))
-        history.push('/setPassword')
+        history.push('/authorization/setPassword')
     }
 
     if (isLoading) return <LoadingScreen placeholder='Generating a wallet...'/>

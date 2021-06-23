@@ -58,7 +58,7 @@ const BridgeETH:React.FC = () => {
                         <h4 style={{color:theme.colors.textSecondary}}>You have: {currentBalance} ETH</h4>
                     </div>
                     <div style={{display:'flex',flexDirection:'column'}}>
-                        <TouchableLink text='Reject' link='/walletDisplay' style={{backgroundColor:theme.colors.warning}}/>
+                        <TouchableLink text='Reject' link='/main' style={{backgroundColor:theme.colors.warning}}/>
                         <Button type='submit' style={{backgroundColor:theme.colors.green, fontSize: theme.fontsize.large,}}>Confirm</Button>
                     </div>
                 </Form>

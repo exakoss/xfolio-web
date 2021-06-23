@@ -10,12 +10,7 @@ import {TokenListEntry} from '../types';
 
 const Search:React.FC = () => {
     const [filter,setFilter] = useState<string>('')
-    const {data: tokensByNameData, status:tokensByNameStatus} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
-    console.log(tokensByNameData)
-
-    useEffect(() => {
-        console.log(filter)
-    }, [filter])
+    const {data: tokensByNameData, isFetching} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
 
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>): void => {
         setFilter(e.target.value)
@@ -29,7 +24,7 @@ const Search:React.FC = () => {
                     onKeyUp={handleChange}
                 />
                 <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} 
-                  isLoading={(tokensByNameStatus === 'loading')}
+                 isLoading={!isFetching}
                 />
             </Form>
         </Formik>
