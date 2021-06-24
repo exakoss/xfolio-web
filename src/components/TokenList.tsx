@@ -2,10 +2,11 @@ import React from 'react'
 import {TokenListEntry} from '../types';
 import LoadingScreen from './LoadingScreen';
 import theme, {commonStyles} from '../theme';
-import {toMoney, isTokenListEntryIncluded, transformTokenListEntryToWatchlistEntry} from '../utils';
+import {toMoney, isTokenListEntryIncluded, transformTokenListEntryToWatchlistEntry, getTokenLogoURL} from '../utils';
 import PercentageChange from './common/PercentageChange';
 import {useDispatch, useSelector,RootStateOrAny} from 'react-redux';
 import {removeWatchlistEntry,addWatchlistEntry} from '../reducers/watchlistReducer';
+import {Image} from 'react-bootstrap'
 
 interface Props {
     tokens: TokenListEntry[],
@@ -26,11 +27,17 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     }
 }
 
+const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
+    const src = getTokenLogoURL(token.address as string)
+    return <Image src={src} alt='token logo' style={{height:"24px",width:"24px"}}/>
+}
+
 const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
     const watchlistEntries = useSelector((state:RootStateOrAny) => state.watchlist.watchlistEntries)
     const isIncluded:boolean = isTokenListEntryIncluded(token,watchlistEntries)
     return (
         <div style={commonStyles.tile as React.CSSProperties}>
+            <CurrencyLogo token={token}/>
             <div style={commonStyles.nameContainer as React.CSSProperties}>
                 <div style={commonStyles.tileText}>{token.name}</div>
                 <div style={commonStyles.nameText}>{token.description}</div>
