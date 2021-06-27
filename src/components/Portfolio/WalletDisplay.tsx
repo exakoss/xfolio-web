@@ -40,7 +40,7 @@ const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
     const [currentBalance,setCurrentBalance] = useState<number>(0)
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
+    const [currentNetwork,setCurrentNetwork] = useState<Network>('MAINNET')
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const {data:ethPriceData, isFetching} = useETHPrice()
 
@@ -67,9 +67,11 @@ const WalletDisplay:React.FC = () => {
             <div style={styles.container as React.CSSProperties} id='innerContainer'>
                 <PopupMenu/>
                 <div>
-                    <DropdownButton title={currentNetwork} style={styles.dropdownContainer} drop='up'>
+                    <DropdownButton title={currentNetwork} style={styles.dropdownContainer} drop='down'>
+                        <Dropdown.Item as="button" onClick={() => setCurrentNetwork('MAINNET')}>Mainnet</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => setCurrentNetwork('ARBITRUM')}>Arbitrum</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => setCurrentNetwork('RINKEBY')}>Rinkeby</Dropdown.Item>
                         <Dropdown.Item as="button" onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
                     </DropdownButton>
                     <div style={{...styles.mainText as React.CSSProperties,cursor:'pointer'}}
                          onClick={() => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Formik,Field,Form} from 'formik';
 import theme,{commonStyles} from '../theme';
 import TokenList from './TokenList';

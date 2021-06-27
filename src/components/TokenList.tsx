@@ -27,7 +27,7 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     }
 }
 
-const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
+export const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
     const src = getTokenLogoURL(token.address as string)
     return <Image src={src} alt='token logo' style={{height:"24px",width:"24px"}}/>
 }

@@ -36,7 +36,7 @@ const BridgeETH:React.FC = () => {
 
     const handleSubmit = async (values: { quantity: string }) => {
         console.log(values.quantity)
-        const l2Wallet:Wallet = connectWalletToNetwork(wallet,'ARBITRUM_KOVAN')
+        const l2Wallet:Wallet = connectWalletToNetwork(wallet,'ARBITRUM')
         const l2WalletAddress = await l2Wallet.getAddress()
         const bridge = new Bridge(
             ETH_ERC20_BRIDGE,

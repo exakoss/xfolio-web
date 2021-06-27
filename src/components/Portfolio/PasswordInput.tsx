@@ -1,8 +1,9 @@
 import React from 'react'
-import {Formik, Form, Field,useField} from 'formik';
+import {Formik, Form} from 'formik';
 import theme from '../../theme';
 import * as yup from 'yup'
 import {Button} from 'react-bootstrap';
+import FormikTextInput from '../common/FormikTextInput'
 
 const validationSchema = yup.object().shape({
     password: yup
@@ -19,25 +20,9 @@ const styles = {
         display: 'flex',
         flexDirection:'column',
         justifyContent:'space-around',
-    },
-    errorText: {
-        marginLeft: theme.distance.tiny,
-        color: theme.colors.warning
     }
 }
 
-const FormikTextInput:React.FC<{name:string, placeholder:string,type:string,style:React.CSSProperties}> = ({name,placeholder,type,style}) => {
-    const [field, meta, helpers] = useField(name)
-
-    return(
-        <>
-            <input placeholder={placeholder} {...field} {...helpers} style={style} type={type}/>
-            {meta.touched && meta.error ? (
-                <div style={styles.errorText}>{meta.error}</div>
-            ) : null}
-        </>
-    )
-}
 
 const PasswordInput:React.FC<{onSubmit: ({password}: {password:string}) => Promise<void>}> = ({onSubmit}) => {
     return(
