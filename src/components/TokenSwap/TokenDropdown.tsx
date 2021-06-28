@@ -47,8 +47,21 @@ const TokenDropdown:React.FC = () => {
             <style type="text/css">
                 {`
                 .dropdown-menu {
-                  padding: 0;
+                    padding: 0;
                 }
+                .btn-primary {
+                    border-color: #000;
+                    background-color: #333;  
+                }
+                .btn-primary.focus,
+                .btn-primary:focus,
+                .btn-primary:hover,
+                .btn-primary:active,
+                .btn-primary:not(:disabled):not(.disabled).active,
+                .btn-primary:not(:disabled):not(.disabled):active,
+                .show>.btn-primary.dropdown-toggle {
+                    background-color: #333;
+                 }
                 `}
             </style>
             <Dropdown.Toggle>

@@ -7,6 +7,7 @@ import PercentageChange from './common/PercentageChange';
 import {useDispatch, useSelector,RootStateOrAny} from 'react-redux';
 import {removeWatchlistEntry,addWatchlistEntry} from '../reducers/watchlistReducer';
 import {Image} from 'react-bootstrap'
+import unknown from '../assets/unknownXfolio.png'
 
 interface Props {
     tokens: TokenListEntry[],
@@ -29,7 +30,7 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
 
 export const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
     const src = getTokenLogoURL(token.address as string)
-    return <Image src={src} alt='token logo' style={{height:"24px",width:"24px"}}/>
+    return <Image src={src} alt='' style={{height:"24px",width:"24px"}}/>
 }
 
 const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {

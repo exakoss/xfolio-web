@@ -47,13 +47,18 @@ const SimpleTokenList = React.forwardRef<HTMLDivElement, SimpleTokenListProps>((
                 <>
                     <style type="text/css">
                         {`
-                .dropdown-item {
-                  padding: 0;
-                }
-                `}
+                            .dropdown-item {
+                                padding: 0;
+                                border: 1px solid transparent;
+                            }
+                            .dropdown-item:focus, .dropdown-item:hover {
+                                background-color: #333;
+                                border: 1px solid #0056b3;  
+                            }
+                        `}
                     </style>
                     <Dropdown.Item eventKey={tokenKey} onClick={() => console.log(token.name)}>
-                    <SimpleTokenListTile token={token} key={tokenKey}/>
+                        <SimpleTokenListTile token={token} key={tokenKey}/>
                     </Dropdown.Item>
                 </>
                 )
