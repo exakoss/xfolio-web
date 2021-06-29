@@ -7,6 +7,10 @@
 
 # testing
 /coverage
+<<<<<<< HEAD
+/.idea
+=======
+>>>>>>> main
 .idea
 
 # production

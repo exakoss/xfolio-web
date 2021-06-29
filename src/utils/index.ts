@@ -1,6 +1,7 @@
 import {TokenListEntry, BasicToken, TokenEntry, Bundle, WatchlistEntry} from '../types';
 import {GetBlockProp} from '../types'
 import dayjs from 'dayjs';
+import { ethers } from 'ethers';
 
 export const getTimestamp = (period:GetBlockProp):number => {
     const utcCurrentTime = dayjs()
@@ -80,5 +81,15 @@ export const calculateETHPrice = (derivedETH:string,ethPriceInUSD:number):number
 }
 
 export const toMoney = (value:number,position:number):string => {
+    if(value <= 100 && value > 1){
+        position = 2
+    } else if(value >= 100) {
+        position = 0
+    } 
     return '$' + value.toFixed(position).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+}
+
+export const getTokenLogoURL = (address: string):string => {
+    const modifiedAddress = ethers.utils.getAddress(address)
+    return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${modifiedAddress}/logo.png`
 }
