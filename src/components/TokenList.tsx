@@ -21,11 +21,11 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     const dispatch = useDispatch()
     if (isIncluded) {
         return (
-            <CheckCircleFill style={{height:'24', width:'24', color:'white'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+            <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
         )
     } else {
         return (
-              <CheckCircle style={{height:'24', width:'24', color:'white'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+              <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
             )
     }
 }
@@ -35,10 +35,10 @@ const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
         const src = getTokenLogoURL(token.address as string)
         return <Image src={src} style={{height:"24px",width:"24px", margin:'10px'}}/>
       } catch (e) {
-        console.log('Error') 
+        console.log('Error')
         return <QuestionSquare style={{height:"24px",width:"24px"}}/>
       }
-    
+
 }
 
 const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
@@ -71,7 +71,7 @@ const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading,style}) => {
     if (isLoading) return <LoadingScreen placeholder=''/>
     //If the array of tokens empty, e.g. the searchbar is clean, we display a placeholder
     if (tokens.length === 0) return <div style={{...commonStyles.flexColumn as React.CSSProperties, marginTop:'55px', ...style}}>
-        <div style={{color:theme.colors.textWhite, textAlign: 'center', fontSize: theme.fontsize.normal, 
+        <div style={{color:theme.colors.textWhite, textAlign: 'center', fontSize: theme.fontsize.normal,
                     fontFamily: theme.fontLink.fontFamilyText}}>
             {placeholder}
         </div>

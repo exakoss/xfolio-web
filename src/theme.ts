@@ -46,11 +46,11 @@ const theme = {
         borderColor: '#333333',
         borderRadius:'100px',
         fontSize: '5px'
-    
 
-         
+
+
         },
-    
+
 }
 export const headerStyle = {
     display: 'flex',
@@ -62,8 +62,7 @@ export const headerStyle = {
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
     borderBottomColor: theme.colors.white,
-    zIndex: '2',
-
+    zIndex: '9999',
     dropdownContainer: {
         display: 'flex',
         justifyContent: 'center'
@@ -134,20 +133,20 @@ export const commonStyles = {
         flexDirection:"column"
     },
     largeButton: {
-        width:'300px', 
+        width:'300px',
         boxShadow: '0 0 50px rgba(255, 255, 255, 0.5)',
-        fontFamily: theme.fontLink.fontFamilyLabel, 
+        fontFamily: theme.fontLink.fontFamilyLabel,
         fontSize: theme.fontsize.large,
     },
     normalButton: {
         fontFamily:theme.fontLink.fontFamilyText,
-        fontSize: theme.fontsize.extraSmall,  
+        fontSize: theme.fontsize.extraSmall,
     },
     textBox: {
         fontFamily: theme.fontLink.fontFamilyText,
-        fontSize: theme.fontsize.small, 
+        fontSize: theme.fontsize.small,
         marginBottom:theme.distance.normal,
-        height:theme.distance.extraLarge, 
+        height:theme.distance.extraLarge,
         marginTop:theme.distance.normal
 
     }
