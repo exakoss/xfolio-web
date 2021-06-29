@@ -17,7 +17,8 @@ const styles = {
     },
     loadingText: {
         color:theme.colors.textWhite,
-        fontSize:theme.fontsize.large
+        fontSize:theme.fontsize.large,
+        fontFamily: theme.fontLink.fontFamilyText
     }
 }
 

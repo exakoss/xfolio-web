@@ -10,24 +10,26 @@ const AuthorizationSwitch:React.FC = () => {
     const {path} = useRouteMatch()
     console.log(path)
     return(
-        <Switch>
-            <Route exact path={path}>
-                <Registration/>
-            </Route>
-            <Route path={`${path}/login`}>
-                <Login/>
-            </Route>
-            <Route path={`${path}/setPassword`}>
-                <SetPassword/>
-            </Route>
-            <Route path={`${path}/mnemonic`}>
-                <Mnemonic/>
-            </Route>
-            <Route path={`${path}/mnemonicImport`}>
-                <MnemonicImport/>
-            </Route>
-        </Switch>
-    )
+        <React.Fragment>
+            <Switch>
+                <Route exact path={path}>
+                    <Registration/>
+                </Route>
+                <Route path={`${path}/login`}>
+                    <Login/>
+                </Route>
+                <Route path={`${path}/setPassword`}>
+                    <SetPassword/>
+                </Route>
+                <Route path={`${path}/mnemonic`}>
+                    <Mnemonic/>
+                </Route>
+                <Route path={`${path}/mnemonicImport`}>
+                    <MnemonicImport/>
+                </Route>
+            </Switch>
+        </React.Fragment>
+    ) 
 }
 
 export default AuthorizationSwitch

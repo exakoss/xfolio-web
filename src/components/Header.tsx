@@ -2,34 +2,17 @@ import React, {useState,useEffect} from 'react'
 import {Wallet} from 'ethers';
 import {RootStateOrAny, useSelector, useDispatch} from 'react-redux';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
-import {connectWalletToNetwork, getCurrentBalance} from '../utils/ethersTools';
+import {connectWalletToNetwork} from '../utils/ethersTools';
 import {setWallet} from '../reducers/walletReducer';
 import {Network} from '../types';
 import PopupMenu from './PopupMenu';
-import theme from '../theme';
+import {headerStyle} from '../theme';
 
-const headerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems:'center',
-    width: '100%',
-    height:'15%',
-    borderBottom: '1px',
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderBottomColor: theme.colors.white,
-    zIndex: '2',
-
-    dropdownContainer: {
-        display: 'flex',
-        justifyContent: 'center'
-    }
-}
 
 const Header:React.FC = () => {
+    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
 
     useEffect(() => {
         if (wallet === undefined) {
@@ -40,11 +23,10 @@ const Header:React.FC = () => {
         updateWalletNetwork()
     }
     },[currentNetwork])
-    
-//    style={{transform:'translate(-38px, 40px)'}}  moving the dropdown menu 
-    
-        return (
+        
+    return (
             <div style={headerStyle as React.CSSProperties} id='headerContainer'> 
+                <PopupMenu/>
                 <div>
                     <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='up'>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>

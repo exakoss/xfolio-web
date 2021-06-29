@@ -10,7 +10,8 @@ const styles = {
         height: "100%",
         display: 'flex',
         alignItems: 'center',
-        fontFamily: theme.fontLink.fontFamilyText
+        fontFamily: theme.fontLink.fontFamilyText,
+      //  textShadow: 'rgb(255 255 255 / 50%) 0px 0px 20px'
     },
     menu: {
         width: "100%",

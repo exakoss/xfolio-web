@@ -1,5 +1,4 @@
 
-
 const theme = {
     colors: {
         textPrimary: '#24292e',
@@ -13,7 +12,8 @@ const theme = {
         mainBackground: '#e1e4e8',
         green: '#46c41b',
         darkBrown: '#140d07',
-        white: "#FFFFFF"
+        white: "#FFFFFF",
+        lightRed: 'indianred'
     },
     fontWeights: {
         normal: 400,
@@ -40,19 +40,58 @@ const theme = {
     fontLink: {
         fontFamilyText: 'Montserrat, sans-serif',
         fontFamilyLabel: 'Teko, sans-serif'
-      }
+      },
+    btnFlat: {
+        backgroundColor: '#333333',
+        borderColor: '#333333',
+        borderRadius:'100px',
+        fontSize: '5px'
+    
+
+         
+        },
     
 }
+export const headerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems:'center',
+    width: '100%',
+    height:'15%',
+    borderBottom: '1px',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: theme.colors.white,
+    zIndex: '2',
 
-
-
-
+    dropdownContainer: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
+}
 
 export const commonStyles = {
     flexColumn: {
         display: 'flex',
         flexDirection: 'column'
     },
+    innerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '85%',
+        width: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    outerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        width: '100%',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+
     whiteCenteredText: {
         color:theme.colors.textWhite,
         textAlign: 'center'
@@ -65,9 +104,14 @@ export const commonStyles = {
     tile:{
         backgroundColor: theme.colors.background,
         display: 'flex',
-        borderRadius: '10px',
+       // borderRadius: '10px',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: 'double',
+        borderBottomWidth: 'initial',
+        borderBottomStyle: 'double',
+        borderBottomColor: 'initial'
     },
     tileText: {
         color: theme.colors.textWhite,
@@ -93,13 +137,11 @@ export const commonStyles = {
         width:'300px', 
         boxShadow: '0 0 50px rgba(255, 255, 255, 0.5)',
         fontFamily: theme.fontLink.fontFamilyLabel, 
-        fontSize: theme.fontsize.large
+        fontSize: theme.fontsize.large,
     },
     normalButton: {
         fontFamily:theme.fontLink.fontFamilyText,
-        fontSize: theme.fontsize.extraSmall,
-        
-        
+        fontSize: theme.fontsize.extraSmall,  
     },
     textBox: {
         fontFamily: theme.fontLink.fontFamilyText,

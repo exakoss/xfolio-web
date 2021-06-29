@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Button} from 'react-bootstrap';
-import theme from '../theme';
+import theme, {commonStyles} from '../theme';
 import {Bridge} from 'arb-ts';
 import {Formik, Form, Field} from 'formik';
 import {useHistory} from 'react-router';
@@ -11,15 +11,6 @@ import {ETH_ERC20_BRIDGE, ARB_TOKEN_BRIDGE} from '../constants';
 import {connectWalletToNetwork, getCurrentBalance} from '../utils/ethersTools';
 import {parseEther} from 'ethers/lib/utils';
 
-const styles = {
-    container: {
-        display: 'flex',
-        position: 'absolute',
-        height: '100%',
-        flexDirection:'column',
-        justifyContent:'space-around',
-    },
-}
 
 const BridgeETH:React.FC = () => {
     const history = useHistory()
@@ -50,19 +41,25 @@ const BridgeETH:React.FC = () => {
     }
 
     return(
-            <Formik initialValues={{quantity:'0.1'}} onSubmit={handleSubmit}>
-                <Form style ={styles.container as React.CSSProperties}>
-                    <div style={{display:'flex',flexDirection:'column'}}>
-                        <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Your are about to bridge:</h2>
-                        <Field name='quantity' placeholder='Input ETH amount here' type='number' step='0.1' style={{fontSize: theme.fontsize.large}}/>
-                        <h4 style={{color:theme.colors.textSecondary}}>You have: {currentBalance} ETH</h4>
-                    </div>
-                    <div style={{display:'flex',flexDirection:'column'}}>
-                        <TouchableLink text='Reject' link='/main' style={{backgroundColor:theme.colors.warning}}/>
-                        <Button type='submit' style={{backgroundColor:theme.colors.green, fontSize: theme.fontsize.large,}}>Confirm</Button>
-                    </div>
-                </Form>
-            </Formik>
+                <Formik initialValues={{quantity:'0.1'}} onSubmit={handleSubmit}>
+                    <Form style ={{...commonStyles.innerContainer as React.CSSProperties, justifyContent: 'space-around'}}>
+                        <div style={{display:'flex',flexDirection:'column', textAlign:'center'}}>
+                            <h2 style={{color:theme.colors.textWhite, fontFamily:theme.fontLink.fontFamilyText, 
+                                fontSize:theme.fontsize.normal}}>Your are about to bridge:
+                            </h2>
+                            <Field name='quantity' placeholder='Input ETH amount here' type='number' 
+                                step='0.1' style={{...commonStyles.textBox as React.CSSProperties, width: '300px'}}
+                            />
+                            <h4 style={{color:theme.colors.textSecondary, fontFamily:theme.fontLink.fontFamilyText, 
+                                fontSize:theme.fontsize.normal}}>Total ETH Avalible: {currentBalance}
+                            </h4>
+                        </div>
+                        <div style={{display:'flex',flexDirection:'column'}}>
+                            <TouchableLink text='Reject' link='/main' style={{...commonStyles.largeButton as React.CSSProperties, backgroundColor: theme.colors.lightRed}}/>
+                            <Button type='submit' style={commonStyles.largeButton as React.CSSProperties}>Confirm</Button>
+                        </div>
+                    </Form>
+                </Formik>
     )
 }
 

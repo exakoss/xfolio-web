@@ -17,16 +17,17 @@ const buttonStyle = {
 
 
 const TouchableLink:React.FC<{text:string,link:string,style?:React.CSSProperties,disabled?:boolean}> = ({text,link,style,disabled}) => {
-  //  const [bgColor, setBgColor] = useState(buttonStyle.background);
-    const [bgColor, setBgColor] = useState(theme.colors.primary);
+    //  const [bgColor, setBgColor] = useState(buttonStyle.background);
+    //  const [bgColor, setBgColor] = useState(theme.colors.primary);
 
     const history = useHistory()
     return (
         <Button onClick={() => history.push(link)} 
-        style={{...buttonStyle, ...style, backgroundColor:bgColor}} 
+      //  style={{...buttonStyle, ...style, backgroundColor:bgColor}} 
+        style={{...buttonStyle, ...style}} 
         disabled={(disabled === undefined) ? false : disabled}
-            onMouseEnter={() => setBgColor(theme.colors.primaryLight)}
-            onMouseLeave={() => setBgColor(theme.colors.primary)}
+          //  onMouseEnter={() => setBgColor(theme.colors.primaryLight)}
+           // onMouseLeave={() => setBgColor(theme.colors.primary)}
         >
 
             {text}

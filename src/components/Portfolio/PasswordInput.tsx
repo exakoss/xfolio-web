@@ -1,5 +1,5 @@
 import React from 'react'
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field,useField} from 'formik';
 import theme, {commonStyles} from '../../theme';
 import * as yup from 'yup'
 import {Button} from 'react-bootstrap';
@@ -15,21 +15,41 @@ const validationSchema = yup.object().shape({
 })
 
 const styles = {
-    container: {
+    passwordContainer: {
         display: 'flex',
         flexDirection:'column',
-        justifyContent:'flex-end',
-        width: '300px'
-    },
+        width: '300px', 
+    }, 
+    errorText: {
+        marginLeft: theme.distance.tiny,
+        color: theme.colors.warning
+    }
+}
+
+const FormikTextInput:React.FC<{name:string, placeholder:string,type:string,style:React.CSSProperties}> = ({name,placeholder,type,style}) => {
+    const [field, meta, helpers] = useField(name)
+
+    return(
+        <>
+            <input placeholder={placeholder} {...field} {...helpers} style={style} type={type}/>
+            {meta.touched && meta.error ? (
+                <div style={styles.errorText}>{meta.error}</div>
+            ) : null}
+        </>
+    )
 }
 
 const PasswordInput:React.FC<{onSubmit: ({password}: {password:string}) => Promise<void>}> = ({onSubmit}) => {
     return(
         <Formik  onSubmit={onSubmit} initialValues={{password:'', passwordConfirmation: ''}} validationSchema={validationSchema}>
-            <Form style={styles.container as React.CSSProperties}>
-                <div style={{...styles.container as React.CSSProperties,marginBottom:'200px'}}>
-                    <Field name='password' placeholder='Input your password here...' type='password' style={commonStyles.textBox}/>
-                    <Field name='passwordConfirmation' placeholder='Confirm your password...' type='password' style={commonStyles.textBox}/>
+            <Form style={{...commonStyles.outerContainer as React.CSSProperties, width:'300px', height:'500px'}}>
+                <div>
+                    <FormikTextInput name='password' placeholder='Input your password here...' type='password' 
+                        style={{...commonStyles.textBox as React.CSSProperties, width:'300px'}}
+                    />
+                    <FormikTextInput name='passwordConfirmation' placeholder='Confirm your password...' type='password' 
+                        style={{...commonStyles.textBox as React.CSSProperties, width:'300px'}}
+                    />
                 </div>
                 <Button type='submit' style={commonStyles.largeButton}>Submit</Button>
             </Form>

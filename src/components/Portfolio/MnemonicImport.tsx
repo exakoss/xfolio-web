@@ -7,7 +7,7 @@ import MnemonicPhraseView from './MnemonicPhraseView';
 import {useHistory} from 'react-router';
 import {setWallet} from '../../reducers/walletReducer';
 import {Button} from 'react-bootstrap';
-import theme from '../../theme';
+import theme, {commonStyles} from '../../theme';
 
 const MnemonicImport:React.FC = () => {
     const dispatch = useDispatch()
@@ -34,31 +34,35 @@ const MnemonicImport:React.FC = () => {
     return(
             <Formik initialValues={{phraseWord:''}} onSubmit={onSubmit}>
                 {({handleSubmit}) => (
-                    <form onSubmit={handleSubmit} style={{display:'flex ',flexDirection:'column'}}>
-                        <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Type in the mnemonic phrase:</h2>
-                        <input
-                            name='phraseWorld'
-                            type='text'
-                            autoCapitalize='none'
-                            readOnly={isReadOnly}
-                            style={{fontSize: theme.fontsize.normal, maxWidth:'250px', alignSelf: 'center'}}
-                            placeholder='Input your mnemonic...'
-                            onChange={(event) => {
-                                const val = event.target.value
-                                if (val !== ' ') {
-                                    if (val.slice(-1) === ' ') {
-                                        if (currentPhrase === '') {
-                                            setCurrentPhrase(currentPhrase.concat(val.slice(0, val.length - 1)))
-                                        } else {
-                                            setCurrentPhrase(currentPhrase.concat(' ', val.slice(0, val.length - 1)))
+                    <form onSubmit={handleSubmit} style={commonStyles.outerContainer as React.CSSProperties}>
+                        <div style={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
+                            <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge, 
+                                fontFamily:theme.fontLink.fontFamilyLabel}}>Type in the mnemonic phrase:
+                            </h2>
+                            <input
+                                name='phraseWorld'
+                                type='text'
+                                autoCapitalize='none'
+                                readOnly={isReadOnly}
+                                style={{...commonStyles.textBox as React.CSSProperties, width:'350px'}}
+                                placeholder='Input your mnemonic...'
+                                onChange={(event) => {
+                                    const val = event.target.value
+                                    if (val !== ' ') {
+                                        if (val.slice(-1) === ' ') {
+                                            if (currentPhrase === '') {
+                                                setCurrentPhrase(currentPhrase.concat(val.slice(0, val.length - 1)))
+                                            } else {
+                                                setCurrentPhrase(currentPhrase.concat(' ', val.slice(0, val.length - 1)))
+                                            }
+                                            event.target.value = ''
                                         }
-                                        event.target.value = ''
                                     }
-                                }
-                            }}
-                        />
+                                }}
+                            />
+                        </div>
                         <MnemonicPhraseView phrase={currentPhrase}/>
-                        <Button type='submit' style={{marginTop:theme.distance.small, fontSize: theme.fontsize.large, maxWidth:'250px', alignSelf:'center'}}>Import a wallet</Button>
+                        <Button type='submit' style={commonStyles.largeButton as React.CSSProperties}>Import a wallet</Button>
                     </form>
                 )}
             </Formik>
