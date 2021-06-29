@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {Dispatch, SetStateAction, useState} from 'react'
 import SimpleTokenList, {SimpleTokenListTile} from './SimpleTokenList'
 import {Formik,Field,Form} from 'formik'
 import {TokenListEntry} from '../../types'
@@ -6,19 +6,11 @@ import {Dropdown} from 'react-bootstrap'
 import theme, {commonStyles} from '../../theme'
 import {useUniTokensByNameForTokenlist} from '../../graphql/uniQueries'
 
-const mockGRT:TokenListEntry = {
-    address: '0xc944e90c64b2c07662a292be6244bdf05cda44a7',
-    description: 'Graph Token',
-    dataSource: 'UNI',
-    name: 'GRT',
-    asset: 'GRT',
-    formattedRate: 10,
-    formattedRateDaily: 8,
-    category: 'crypto',
-    sign:''
+interface SimpleTokenSearchProps extends React.ComponentPropsWithoutRef<'div'> {
+    setToken: Dispatch<SetStateAction<TokenListEntry>>
 }
 
-const SimpleTokenSearch = React.forwardRef<HTMLDivElement>((props,ref) => {
+const SimpleTokenSearch = React.forwardRef<HTMLDivElement, SimpleTokenSearchProps>(({setToken},ref) => {
     const [filter,setFilter] = useState<string>('')
     const {data: tokensByNameData, isFetching} = useUniTokensByNameForTokenlist(filter,'ONE_DAY')
 
@@ -34,43 +26,45 @@ const SimpleTokenSearch = React.forwardRef<HTMLDivElement>((props,ref) => {
                            type='text' style={{fontSize: theme.fontsize.small, marginBottom:theme.distance.tiny}}
                            onKeyUp={handleChange}
                     />
-                    <SimpleTokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={isFetching}/>
+                    <SimpleTokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={isFetching} setToken={setToken}/>
                 </Form>
             </Formik>
         </div>
     )
 })
 
-const TokenDropdown:React.FC = () => {
+const TokenDropdown:React.FC<{token:TokenListEntry,setToken: Dispatch<SetStateAction<TokenListEntry>>}> = ({token,setToken}) => {
     return(
-        <Dropdown>
-            <style type="text/css">
-                {`
-                .dropdown-menu {
-                    padding: 0;
-                }
-                .btn-primary {
-                    border-color: #000;
-                    background-color: #333;  
-                }
-                .btn-primary.focus,
-                .btn-primary:focus,
-                .btn-primary:hover,
-                .btn-primary:active,
-                .btn-primary:not(:disabled):not(.disabled).active,
-                .btn-primary:not(:disabled):not(.disabled):active,
-                .show>.btn-primary.dropdown-toggle {
-                    background-color: #333;
-                 }
-                `}
-            </style>
-            <Dropdown.Toggle>
-                <SimpleTokenListTile token={mockGRT}/>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                <SimpleTokenSearch/>
-            </Dropdown.Menu>
-        </Dropdown>
+        <div style={{marginBottom:theme.distance.tiny}}>
+            <Dropdown>
+                <style type="text/css">
+                    {`
+                    .dropdown-menu {
+                        padding: 0;
+                    }
+                    .btn-primary {
+                        border-color: #000;
+                        background-color: #333;  
+                    }
+                    .btn-primary.focus,
+                    .btn-primary:focus,
+                    .btn-primary:hover,
+                    .btn-primary:active,
+                    .btn-primary:not(:disabled):not(.disabled).active,
+                    .btn-primary:not(:disabled):not(.disabled):active,
+                    .show>.btn-primary.dropdown-toggle {
+                        background-color: #333;
+                     }
+                    `}
+                </style>
+                <Dropdown.Toggle>
+                    <SimpleTokenListTile token={token}/>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <SimpleTokenSearch setToken={setToken}/>
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
     )
 }
 

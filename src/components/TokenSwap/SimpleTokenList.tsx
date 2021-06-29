@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Dispatch, SetStateAction} from 'react'
 import {CurrencyLogo} from '../TokenList'
 import {TokenListEntry} from '../../types'
 import theme, {commonStyles} from '../../theme'
@@ -12,7 +12,8 @@ interface SimpleTokenListTileProps extends React.ComponentPropsWithoutRef<'div'>
 interface SimpleTokenListProps extends React.ComponentPropsWithoutRef<'div'> {
     tokens: TokenListEntry[],
     placeholder: string,
-    isLoading: boolean
+    isLoading: boolean,
+    setToken: Dispatch<SetStateAction<TokenListEntry>>
 }
 
 //SimpleTokenList and its children are shortened TokenList components that are being used for Dropdown in TokenSwap
@@ -38,7 +39,7 @@ const SimpleTokenList = React.forwardRef<HTMLDivElement, SimpleTokenListProps>((
         </div>
     </div>
     return(
-        <div style={{overflowY:"auto", overflowX:'hidden', width:"220px", height:'250px'}} ref={ref}>
+        <div style={{overflowY:'auto', overflowX:'hidden', width:"220px", maxHeight:'220px'}} ref={ref}>
             {props.tokens.map(token => {
                 const tokenKey = token.description.concat(String(Math.random()))
                 // Since keys have to be unique, we concat a random float to the token.description to ensure the uniqueness
@@ -57,7 +58,7 @@ const SimpleTokenList = React.forwardRef<HTMLDivElement, SimpleTokenListProps>((
                             }
                         `}
                     </style>
-                    <Dropdown.Item eventKey={tokenKey} onClick={() => console.log(token.name)}>
+                    <Dropdown.Item eventKey={tokenKey} onClick={() => props.setToken(token)}>
                         <SimpleTokenListTile token={token} key={tokenKey}/>
                     </Dropdown.Item>
                 </>
