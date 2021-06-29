@@ -6,15 +6,9 @@ import {toMoney, isTokenListEntryIncluded, transformTokenListEntryToWatchlistEnt
 import PercentageChange from './common/PercentageChange';
 import {useDispatch, useSelector,RootStateOrAny} from 'react-redux';
 import {removeWatchlistEntry,addWatchlistEntry} from '../reducers/watchlistReducer';
-import HelpTwoToneIcon from '@material-ui/icons/HelpTwoTone';
 import {Image} from 'react-bootstrap';
-import { CheckCircleFill, CheckCircle } from 'react-bootstrap-icons';
+import { CheckCircleFill, CheckCircle, QuestionSquare } from 'react-bootstrap-icons';
 
-
-
-// export const .btnPrimary {
-//     backgroundColor: '#8064A2 !important'
-//   }
 
 interface Props {
     tokens: TokenListEntry[],
@@ -41,8 +35,8 @@ const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
         const src = getTokenLogoURL(token.address as string)
         return <Image src={src} style={{height:"24px",width:"24px", margin:'10px'}}/>
       } catch (e) {
-        console.log('Error')
-        return <HelpTwoToneIcon style={{height:"24px",width:"24px"}}/>
+        console.log('Error') 
+        return <QuestionSquare style={{height:"24px",width:"24px"}}/>
       }
     
 }
