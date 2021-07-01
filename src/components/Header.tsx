@@ -28,7 +28,7 @@ const Header:React.FC = () => {
             <div style={headerStyle as React.CSSProperties} id='headerContainer'> 
                 <PopupMenu/>
                 <div>
-                    <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='up'>
+                    <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='down'>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
                     </DropdownButton>

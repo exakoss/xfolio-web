@@ -22,7 +22,8 @@ const styles = {
     }, 
     errorText: {
         marginLeft: theme.distance.tiny,
-        color: theme.colors.warning
+        color: theme.colors.warning,
+        fontFamily: theme.fontLink.fontFamilyText
     }
 }
 

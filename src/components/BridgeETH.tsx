@@ -55,7 +55,7 @@ const BridgeETH:React.FC = () => {
                             </h4>
                         </div>
                         <div style={{display:'flex',flexDirection:'column'}}>
-                            <TouchableLink text='Reject' link='/main' style={{...commonStyles.largeButton as React.CSSProperties, backgroundColor: theme.colors.lightRed}}/>
+                            <TouchableLink text='Reject' link='/main' style={{...commonStyles.largeButton as React.CSSProperties, background: theme.colors.rejectColor, borderWidth: '0px', boxShadow:'none'}}/>
                             <Button type='submit' style={commonStyles.largeButton as React.CSSProperties}>Confirm</Button>
                         </div>
                     </Form>

@@ -5,13 +5,12 @@ import {NavLink} from 'react-router-dom';
 
 const styles = {
     contentStyle: {
-        background: "rgba(51,51,51,1)",
+        background: theme.colors.background,
         width: "100%",
         height: "100%",
         display: 'flex',
         alignItems: 'center',
         fontFamily: theme.fontLink.fontFamilyText,
-      //  textShadow: 'rgb(255 255 255 / 50%) 0px 0px 20px'
     },
     menu: {
         width: "100%",

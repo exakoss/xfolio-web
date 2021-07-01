@@ -21,11 +21,11 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     const dispatch = useDispatch()
     if (isIncluded) {
         return (
-            <CheckCircleFill style={{height:'24', width:'24', color:'white'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+            <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
         )
     } else {
         return (
-              <CheckCircle style={{height:'24', width:'24', color:'white'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+              <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
             )
     }
 }
@@ -33,7 +33,7 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
 const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
     try {
         const src = getTokenLogoURL(token.address as string)
-        return <Image src={src} style={{height:"24px",width:"24px", margin:'10px'}}/>
+        return <Image src={src} style={{height:"24px",width:"24px", marginLeft:'15px'}}/>
       } catch (e) {
         console.log('Error') 
         return <QuestionSquare style={{height:"24px",width:"24px"}}/>
@@ -49,7 +49,7 @@ const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
 
         <div style={commonStyles.tile as React.CSSProperties}>
             <CurrencyLogo token={token}/>
-            <div style={{display:'flex', flexDirection:'row', width: '220px', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div style={{display:'flex', flexDirection:'row', width: '250px', justifyContent: 'space-between', alignItems: 'center'}}>
                 <div style={commonStyles.nameContainer as React.CSSProperties}>
                     <div style={commonStyles.tileText}>{token.name}</div>
                     <div style={{...commonStyles.nameText  as React.CSSProperties, width:'120px'}}>{token.description}</div>
@@ -77,7 +77,7 @@ const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading,style}) => {
         </div>
     </div>
     return(
-        <div style={{overflowY:"auto", width:"380px", marginTop:'55px', ...style}}>
+        <div style={{overflowY:"auto", width:"400px", marginTop:'55px', ...style}}>
             {tokens.map(token => {
                 // Since keys have to be unique, we concat a random float to the token.description to ensure the uniqueness
                 // If a cheaper method is available, change it

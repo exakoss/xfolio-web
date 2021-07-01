@@ -17,7 +17,7 @@ const Search:React.FC = () => {
 // style={{fontFamily: theme.fontLink.fontFamilyLabel, fontSize: theme.fontSize.large}}
     return(
         <Formik initialValues={{filterValue:''}} onSubmit={() => {}}>
-            <Form style={{...commonStyles.innerContainer as React.CSSProperties, justifyContent:'start', width:'380px'}}>
+            <Form style={{...commonStyles.innerContainer as React.CSSProperties, justifyContent:'start', width:'400px'}}>
                 <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{...commonStyles.textBox as React.CSSProperties, 
                 width:'300px', marginBotton: '0px', marginTop: '10px', position:'absolute'}}
                     onKeyUp={handleChange}
