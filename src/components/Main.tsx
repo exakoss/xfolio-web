@@ -6,9 +6,9 @@ import MainSwitch from './navigation/MainSwitch'
 
 const mainStyle = {
     display: 'flex',
-    position: 'relative',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    position: 'relative',
     height: '500px',
     width: '400px',
     backgroundColor: theme.colors.background,

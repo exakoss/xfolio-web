@@ -81,6 +81,11 @@ export const calculateETHPrice = (derivedETH:string,ethPriceInUSD:number):number
 }
 
 export const toMoney = (value:number,position:number):string => {
+    if(value <= 100 && value > 1){
+        position = 2
+    } else if(value >= 100) {
+        position = 0
+    }
     return '$' + value.toFixed(position).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 }
 

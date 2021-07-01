@@ -3,8 +3,9 @@ import {Formik,Field,Form} from 'formik';
 import theme,{commonStyles} from '../theme';
 import TokenList from './TokenList';
 import {useUniTokensByNameForTokenlist} from '../graphql/uniQueries';
-import PopupMenu from './PopupMenu';
 import {TokenListEntry} from '../types';
+
+
 
 const Search:React.FC = () => {
     const [filter,setFilter] = useState<string>('')
@@ -13,16 +14,17 @@ const Search:React.FC = () => {
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>): void => {
         setFilter(e.target.value)
     }
-
+// style={{fontFamily: theme.fontLink.fontFamilyLabel, fontSize: theme.fontSize.large}}
     return(
         <Formik initialValues={{filterValue:''}} onSubmit={() => {}}>
-            <Form style={{...commonStyles.flexColumn as React.CSSProperties,height: '85%', justifyContent:'start', marginTop: '15%', width:'380px'}}>
-                <PopupMenu/>
-                <Field name='filterValue' placeholder='Input ticker here...'
-                       type='text' style={{fontSize: theme.fontsize.large, marginBottom:theme.distance.normal}}
+            <Form style={{...commonStyles.innerContainer as React.CSSProperties, justifyContent:'start', width:'380px'}}>
+                <Field name='filterValue' placeholder='Input ticker here...' type='text' style={{...commonStyles.textBox as React.CSSProperties, 
+                width:'300px', marginBotton: '0px', marginTop: '10px', position:'absolute'}}
                     onKeyUp={handleChange}
                 />
-                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} isLoading={isFetching}/>
+                <TokenList tokens={tokensByNameData as TokenListEntry[]} placeholder={'Token list is empty'} 
+                 isLoading={isFetching}
+                />
             </Form>
         </Formik>
     )

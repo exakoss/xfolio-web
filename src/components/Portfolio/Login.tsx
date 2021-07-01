@@ -14,7 +14,7 @@ const Login:React.FC = () => {
     const onSubmit = async ({password}: {password:string}) => {
         try {
             const generatedWallet = await ethers.Wallet.fromEncryptedJson(jsonSeed,password)
-            const wallet = connectWalletToNetwork(generatedWallet,'KOVAN')
+            const wallet = connectWalletToNetwork(generatedWallet,'MAINNET')
             dispatch(setWallet(wallet))
             history.push('/main')
         }

@@ -5,19 +5,7 @@ import LoadingScreen from '../LoadingScreen';
 import {setWallet} from '../../reducers/walletReducer';
 import {createConnectedWallet} from '../../utils/ethersTools';
 import TouchableLink from '../common/TouchableLink';
-import theme from '../../theme';
-
-const styles = {
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent:'center'
-    },
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'center'
-    }
-}
+import theme, {commonStyles} from '../../theme';
 
 const Mnemonic:React.FC = () => {
     const dispatch = useDispatch()
@@ -26,7 +14,7 @@ const Mnemonic:React.FC = () => {
 
     useEffect(() => {
         const asyncHook = async () => {
-            const newWallet = createConnectedWallet('KOVAN')
+            const newWallet = createConnectedWallet('MAINNET')
             dispatch(setWallet(newWallet))
             setIsLoading(false)
         }
@@ -35,12 +23,14 @@ const Mnemonic:React.FC = () => {
 
     if (isLoading) return <LoadingScreen placeholder='Generating a wallet...'/>
     return(
-        <div style={styles.container}>
-            <h2 style={{textAlign:'center',color:theme.colors.textWhite}}>Your mnemonic phrase:</h2>
-            <MnemonicPhraseView phrase={connectedWallet?.mnemonic.phrase}/>
-            <div style={styles.buttonContainer}>
-                <TouchableLink text='Set the password' link='/authorization/setPassword'/>
+        <div style={commonStyles.outerContainer as React.CSSProperties}>
+            <div style={{fontFamily:theme.fontLink.fontFamilyText}}>
+                <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge,
+                    fontFamily:theme.fontLink.fontFamilyLabel}}>Your mnemonic phrase:
+                    </h2>
+                <MnemonicPhraseView phrase={connectedWallet?.mnemonic.phrase}/>
             </div>
+                <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='Set the password' link='/authorization/setPassword'/>
         </div>
     )
 }
