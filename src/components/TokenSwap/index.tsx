@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {Formik,Form,Field} from 'formik'
-import {TradeContext} from 'simple-uniswap-sdk'
 import {generateUniTrade} from '../../utils/simpleUniTools'
 import theme, {commonStyles} from '../../theme'
 import TokenDropdown from './TokenDropdown'
