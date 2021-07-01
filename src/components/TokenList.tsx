@@ -6,9 +6,8 @@ import {toMoney, isTokenListEntryIncluded, transformTokenListEntryToWatchlistEnt
 import PercentageChange from './common/PercentageChange';
 import {useDispatch, useSelector,RootStateOrAny} from 'react-redux';
 import {removeWatchlistEntry,addWatchlistEntry} from '../reducers/watchlistReducer';
-import {Image} from 'react-bootstrap';
+import {Image} from 'react-bootstrap'
 import { CheckCircleFill, CheckCircle, QuestionSquare } from 'react-bootstrap-icons';
-
 
 interface Props {
     tokens: TokenListEntry[],
@@ -21,11 +20,19 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     const dispatch = useDispatch()
     if (isIncluded) {
         return (
+<<<<<<< HEAD
             <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
         )
     } else {
         return (
               <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+=======
+            <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+        )
+    } else {
+        return (
+              <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
+>>>>>>> cbfddb5f5487d6e590696d925f11afb49111b37d
             )
     }
 }
@@ -71,7 +78,7 @@ const TokenList:React.FC<Props> = ({tokens,placeholder,isLoading,style}) => {
     if (isLoading) return <LoadingScreen placeholder=''/>
     //If the array of tokens empty, e.g. the searchbar is clean, we display a placeholder
     if (tokens.length === 0) return <div style={{...commonStyles.flexColumn as React.CSSProperties, marginTop:'55px', ...style}}>
-        <div style={{color:theme.colors.textWhite, textAlign: 'center', fontSize: theme.fontsize.normal, 
+        <div style={{color:theme.colors.textWhite, textAlign: 'center', fontSize: theme.fontsize.normal,
                     fontFamily: theme.fontLink.fontFamilyText}}>
             {placeholder}
         </div>

@@ -14,7 +14,7 @@ const Mnemonic:React.FC = () => {
 
     useEffect(() => {
         const asyncHook = async () => {
-            const newWallet = createConnectedWallet('KOVAN')
+            const newWallet = createConnectedWallet('MAINNET')
             dispatch(setWallet(newWallet))
             setIsLoading(false)
         }
@@ -25,7 +25,7 @@ const Mnemonic:React.FC = () => {
     return(
         <div style={commonStyles.outerContainer as React.CSSProperties}>
             <div style={{fontFamily:theme.fontLink.fontFamilyText}}>
-                <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge, 
+                <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge,
                     fontFamily:theme.fontLink.fontFamilyLabel}}>Your mnemonic phrase:
                     </h2>
                 <MnemonicPhraseView phrase={connectedWallet?.mnemonic.phrase}/>

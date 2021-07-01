@@ -14,7 +14,7 @@ const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
     const [currentBalance,setCurrentBalance] = useState<number>(0)
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
+    const [currentNetwork,setCurrentNetwork] = useState<Network>('MAINNET')
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const {data:ethPriceData, isFetching} = useETHPrice()
 

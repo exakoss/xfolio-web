@@ -150,9 +150,9 @@ export const commonStyles = {
         borderImageSlice: '1'
     },
     largeButton: {
-        width:'300px', 
+        width:'300px',
         boxShadow: '0 0 50px rgba(255, 255, 255, 0.5)',
-        fontFamily: theme.fontLink.fontFamilyLabel, 
+        fontFamily: theme.fontLink.fontFamilyLabel,
         fontSize: theme.fontsize.large,
         background: theme.colors.buttonColor,
         borderWidth: '2px',
@@ -171,9 +171,9 @@ export const commonStyles = {
     },
     textBox: {
         fontFamily: theme.fontLink.fontFamilyText,
-        fontSize: theme.fontsize.small, 
+        fontSize: theme.fontsize.small,
         marginBottom:theme.distance.normal,
-        height:theme.distance.extraLarge, 
+        height:theme.distance.extraLarge,
         marginTop:theme.distance.normal
 
     }
