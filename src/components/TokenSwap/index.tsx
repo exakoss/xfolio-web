@@ -3,7 +3,6 @@ import {Formik,Form,Field} from 'formik'
 import {generateUniTrade} from '../../utils/simpleUniTools'
 import theme, {commonStyles} from '../../theme'
 import TokenDropdown from './TokenDropdown'
-import PopupMenu from '../PopupMenu'
 import {Button} from 'react-bootstrap'
 import {ArrowDownUp} from 'react-bootstrap-icons'
 import {TokenListEntry} from '../../types'
@@ -36,10 +35,14 @@ const styles = {
     arrowIcon: {
         cursor: 'pointer',
         alignSelf: 'center',
-        height: '40px',
-        width: '40px',
+        height: '30px',
+        width: '30px',
         borderRadius: '25px',
-        padding: theme.distance.tiny
+        padding: theme.distance.tiny,
+        // position:'absolute',
+        // top:'200px',
+        // right:'130px'
+
     }
 }
 
@@ -67,23 +70,22 @@ const TokenSwap:React.FC = () => {
 
     return(
         <Formik initialValues={{fromQuantity:'1',toQuantity:'0'}} onSubmit={() => {}}>
-            <Form style={{...commonStyles.flexColumn as React.CSSProperties, height:'100%', justifyContent:'space-around'}}>
-                <PopupMenu/>
-                <div style={commonStyles.flexColumn as React.CSSProperties}>
-                    <TokenDropdown token={fromToken} setToken={setFromToken}/>
-                    <Field name='fromQuantity' placeholder='Input the amount you want to switch here...' type='number' onKeyUp={handleChange}/>
-                </div>
-                {/*<Button onClick={() => changeTokens()}>*/}
-                {/*    <ArrowDownUp color='black'/>*/}
-                {/*</Button>*/}
-                <ArrowDownUp color='black' onClick={() => changeTokens()} style={styles.arrowIcon}/>
-                <div style={commonStyles.flexColumn as React.CSSProperties}>
-                    <TokenDropdown token={toToken} setToken={setToToken}/>
-                    <Field name='toQuantity' placeholder='Input the amount you want to switch here...' type='number' readonly={true}/>
-                </div>
-                <div style={commonStyles.flexColumn as React.CSSProperties}>
-                    <Button style={{marginBottom: theme.distance.small}} variant={'success'}>Approve</Button>
-                    <Button disabled={true} variant={'success'}>Swap</Button>
+            <Form style={{...commonStyles.innerContainer as React.CSSProperties}}>
+             
+                    <div style={{...commonStyles.tokenSwapDrop as React.CSSProperties, position:'fixed', top:'100px', left:'60px', zIndex:4}}>
+                       <TokenDropdown token={fromToken} setToken={setFromToken}/>          
+                    </div>
+                    <Field name='fromQuantity' style={{width:'200px' as React.CSSProperties, position:'fixed', top:'160px',left:'100px'}} 
+                        placeholder='Input the amount you want to switch here...' type='number' onKeyUp={handleChange}/>
+                    <ArrowDownUp color='white' onClick={() => changeTokens()} style={{...styles.arrowIcon, position:'fixed', top:'195px', left:'190px'}}/>
+                    <div style={{...commonStyles.tokenSwapDrop as React.CSSProperties, position:'fixed', top:'230px', left:'60px', zIndex:3}}>
+                        <TokenDropdown token={toToken} setToken={setToToken}/>
+                    </div>
+                    <Field name='toQuantity' style={{width:'200px' as React.CSSProperties, position:'fixed', top:'290px',left:'100px'}}
+                        placeholder='Input the amount you want to switch here...' type='number' readonly={true}/>
+                <div style={{...commonStyles.flexColumn as React.CSSProperties, height: '150px', justifyContent:'space-evenly'}}>
+                    <Button style={{...commonStyles.largeButton as React.CSSProperties, marginBottom: theme.distance.small, fontSize:'25px', width:'230px'}} variant={'success'}>Approve</Button>
+                    <Button style={{...commonStyles.largeButton as React.CSSProperties, fontSize:'25px', width:'230px'}} disabled={true} variant={'success'}>Swap</Button>
                 </div>
             </Form>
         </Formik>

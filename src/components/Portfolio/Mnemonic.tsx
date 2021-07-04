@@ -6,6 +6,7 @@ import {setWallet} from '../../reducers/walletReducer';
 import {createConnectedWallet} from '../../utils/ethersTools';
 import TouchableLink from '../common/TouchableLink';
 import theme, {commonStyles} from '../../theme';
+import BackButton from '../BackButton'
 
 const Mnemonic:React.FC = () => {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ const Mnemonic:React.FC = () => {
     if (isLoading) return <LoadingScreen placeholder='Generating a wallet...'/>
     return(
         <div style={commonStyles.outerContainer as React.CSSProperties}>
+           <BackButton/>
             <div style={{fontFamily:theme.fontLink.fontFamilyText}}>
                 <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge,
                     fontFamily:theme.fontLink.fontFamilyLabel}}>Your mnemonic phrase:

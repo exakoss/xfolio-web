@@ -12,7 +12,6 @@ const styles = {
         borderRadius: 5,
         // marginVertical: theme.distance.small,
         // marginHorizontal: theme.distance.tiny,
-        marginTop: theme.distance.small,
         marginBottom: theme.distance.small,
         marginLeft: theme.distance.tiny,
         padding: theme.distance.tiny,

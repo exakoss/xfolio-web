@@ -46,7 +46,7 @@ const WalletDisplay:React.FC = () => {
                     }
                 </div>
                 <div>
-                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
+                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={false}/>
                 </div>
             </div>
     )

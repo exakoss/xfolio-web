@@ -20,27 +20,19 @@ const AddDeleteButton:React.FC<{token: TokenListEntry,isIncluded:boolean}> = ({t
     const dispatch = useDispatch()
     if (isIncluded) {
         return (
-<<<<<<< HEAD
             <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
         )
     } else {
         return (
               <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer', marginRight:'15px'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
-=======
-            <CheckCircleFill style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(removeWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
-        )
-    } else {
-        return (
-              <CheckCircle style={{height:'24', width:'24', color:'white', cursor:'pointer'}} onClick={() => dispatch(addWatchlistEntry(transformTokenListEntryToWatchlistEntry(token)))}/>
->>>>>>> cbfddb5f5487d6e590696d925f11afb49111b37d
             )
     }
 }
 
-const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
+export const CurrencyLogo:React.FC<{token: TokenListEntry}> = ({token}) => {
     try {
         const src = getTokenLogoURL(token.address as string)
-        return <Image src={src} style={{height:"24px",width:"24px", marginLeft:'15px'}}/>
+        return <Image src={src} style={{height:"24px",width:"24px"}}/>
       } catch (e) {
         console.log('Error') 
         return <QuestionSquare style={{height:"24px",width:"24px"}}/>
@@ -55,7 +47,9 @@ const TokenListTile:React.FC<{token: TokenListEntry}> = ({token}) => {
     return (
 
         <div style={commonStyles.tile as React.CSSProperties}>
+            <div style={{marginLeft:'15px'}}> 
             <CurrencyLogo token={token}/>
+            </div>
             <div style={{display:'flex', flexDirection:'row', width: '250px', justifyContent: 'space-between', alignItems: 'center'}}>
                 <div style={commonStyles.nameContainer as React.CSSProperties}>
                     <div style={commonStyles.tileText}>{token.name}</div>

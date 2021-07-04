@@ -176,6 +176,20 @@ export const commonStyles = {
         height:theme.distance.extraLarge,
         marginTop:theme.distance.normal
 
+    },
+    tokenSwapDrop: {
+        display:'flex',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent: 'space-around',
+        left: '15px'
+    },
+    backButton: {
+        position:'fixed', 
+        top:'10px', 
+        left:'10px', 
+        color:'white', 
+        fontSize:'45px'
     }
 }
 
