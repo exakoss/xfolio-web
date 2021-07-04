@@ -45,8 +45,11 @@ const WalletDisplay:React.FC = () => {
                 <div>
                     <div style={{...commonStyles.mainText as React.CSSProperties,cursor:'pointer'}}
                          onClick={() => {
-                            navigator.clipboard.writeText(wallet.address)
-                            alert('Wallet address copied!')
+                            navigator.clipboard.writeText(wallet.address).then(() => {
+                                alert('Wallet address copied!')
+                            },(error) => {
+                                console.error(error)
+                            })
                     }}>{wallet.address.slice(0,15) + '...'}</div>
                     <div style={styles.mainText as React.CSSProperties}>{(currentBalance === 0) ? currentBalance : currentBalance.toFixed(5)} ETH</div>
                     {/*//Displaying current Balance in USD*/}
