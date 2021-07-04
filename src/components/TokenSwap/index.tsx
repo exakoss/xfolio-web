@@ -11,11 +11,11 @@ import {Wallet} from 'ethers'
 import {RootStateOrAny, useSelector} from 'react-redux'
 
 const mainnetGRT:TokenListEntry = {
-    address: '0xc944e90c64b2c07662a292be6244bdf05cda44a7',
-    description: 'Graph Token',
+    address: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+    description: 'Uniswap',
     dataSource: 'UNI',
-    name: 'GRT',
-    asset: 'GRT',
+    name: 'UNI',
+    asset: 'UNI',
     formattedRate: 10,
     formattedRateDaily: 8,
     category: 'crypto',
@@ -72,7 +72,7 @@ const TokenSwap:React.FC = () => {
             })
             setUniTrade(newTrade)
             // @ts-ignore
-            formikRef.current.setFieldValue('toQuantity',newTrade.expectedConvertQuote)
+            formikRef.current.setFieldValue('toQuantity',Number(newTrade.expectedConvertQuote).toFixed(4).toString())
         }
         asyncFunction()
     },[fromToken,fromQuantity,toToken,wallet])
@@ -81,16 +81,22 @@ const TokenSwap:React.FC = () => {
         const fromToken1 = fromToken
         setFromToken(toToken)
         setToToken(fromToken1)
+        // @ts-ignore
+        console.log(Number(formikRef.current.values.toQuantity))
+        // @ts-ignore
+        setFromQuantity(Number(formikRef.current.values.toQuantity))
+        // @ts-ignore
+        formikRef.current.setFieldValue('fromQuantity',Number(formikRef.current.values.toQuantity).toFixed(4).toString())
     }
 
     return(
-        <Formik initialValues={{fromQuantity:'1',toQuantity:'0'}} onSubmit={() => {}}>
+        <Formik initialValues={{fromQuantity:'1',toQuantity:'1'}} onSubmit={() => {}} innerRef={formikRef}>
             <Form style={{...commonStyles.innerContainer as React.CSSProperties}}>
-             
+
                     <div style={{...commonStyles.tokenSwapDrop as React.CSSProperties, position:'fixed', top:'100px', left:'60px', zIndex:4}}>
-                       <TokenDropdown token={fromToken} setToken={setFromToken}/>          
+                       <TokenDropdown token={fromToken} setToken={setFromToken}/>
                     </div>
-                    <Field name='fromQuantity' style={{width:'200px' as React.CSSProperties, position:'fixed', top:'160px',left:'100px'}} 
+                    <Field name='fromQuantity' style={{width:'200px' as React.CSSProperties, position:'fixed', top:'160px',left:'100px'}}
                         placeholder='Input the amount you want to switch here...' type='number' onKeyUp={handleChange} onInput={handleChange}/>
                     <ArrowDownUp color='white' onClick={() => changeTokens()} style={{...styles.arrowIcon, position:'fixed', top:'195px', left:'190px'}}/>
                     <div style={{...commonStyles.tokenSwapDrop as React.CSSProperties, position:'fixed', top:'230px', left:'60px', zIndex:3}}>
@@ -100,11 +106,11 @@ const TokenSwap:React.FC = () => {
                         placeholder='Input the amount you want to switch here...' type='number' readOnly={true}/>
                      {uniTrade?.routeText && <div style={commonStyles.whiteCenteredText as React.CSSProperties}>{uniTrade.routeText}</div>}
                 <div style={{...commonStyles.flexColumn as React.CSSProperties, height: '150px', justifyContent:'space-evenly'}}>
-                    <Button style={{...commonStyles.largeButton as React.CSSProperties, marginBottom: theme.distance.small, fontSize:'25px', width:'230px'}} variant={'success'}>Approve</Button>
+                    <Button style={{...commonStyles.largeButton as React.CSSProperties, marginBottom: theme.distance.small, fontSize:'25px', width:'230px'}} variant={'success'} disabled={true}>Approve</Button>
                     <Button style={{...commonStyles.largeButton as React.CSSProperties, fontSize:'25px', width:'230px'}} disabled={true} variant={'success'}>Swap</Button>
                 </div>
             </Form>
-        </Formik> 
+        </Formik>
     )
 }
 
