@@ -31,6 +31,7 @@ const Header:React.FC = () => {
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM')}>Arbitrum</Dropdown.Item>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('RINKEBY')}>Rinkeby</Dropdown.Item>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARB_RINKEBY')}>ARB_Rinkeby</Dropdown.Item>
                     </DropdownButton>
                 </div>
             </div>
