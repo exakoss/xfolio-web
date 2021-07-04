@@ -37,7 +37,7 @@ const WalletDisplay:React.FC = () => {
         setIsLoading(true)
         updateCurrentBalance()
         setIsLoading(false)
-    },[wallet])
+    },[wallet,ethPriceData])
 
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
@@ -48,7 +48,7 @@ const WalletDisplay:React.FC = () => {
                             navigator.clipboard.writeText(wallet.address)
                             alert('Wallet address copied!')
                     }}>{wallet.address.slice(0,15) + '...'}</div>
-                    <div style={styles.mainText as React.CSSProperties}>{currentBalance} ETH</div>
+                    <div style={styles.mainText as React.CSSProperties}>{(currentBalance === 0) ? currentBalance : currentBalance.toFixed(5)} ETH</div>
                     {/*//Displaying current Balance in USD*/}
                     { !isFetching ? (
                         //@ts-ignore
@@ -57,7 +57,7 @@ const WalletDisplay:React.FC = () => {
                     }
                 </div>
                 <div>
-                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={true}/>
+                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={false}/>
                 </div>
             </div>
     )
