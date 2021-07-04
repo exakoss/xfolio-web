@@ -50,11 +50,9 @@ const WalletDisplay:React.FC = () => {
                     }}>{wallet.address.slice(0,15) + '...'}</div>
                     <div style={styles.mainText as React.CSSProperties}>{(currentBalance === 0) ? currentBalance : currentBalance.toFixed(5)} ETH</div>
                     {/*//Displaying current Balance in USD*/}
-                    { !isFetching ? (
-                        //@ts-ignore
+                    { ethPriceData && (
                         <div style={styles.secondaryText as React.CSSProperties}>{toMoney(currentBalance*ethPriceData,2)}</div>
-                    ) : null
-                    }
+                    )}
                 </div>
                 <div>
                     <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={false}/>
