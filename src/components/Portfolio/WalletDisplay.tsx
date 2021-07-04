@@ -1,10 +1,9 @@
 import React, {useState,useEffect} from 'react'
 import {Wallet} from 'ethers'
-import {RootStateOrAny, useSelector, useDispatch} from 'react-redux';
+import {RootStateOrAny, useSelector} from 'react-redux';
 import LoadingScreen from '../LoadingScreen';
 import {getCurrentBalance} from '../../utils/ethersTools';
 import theme, {commonStyles} from '../../theme';
-import {Network} from '../../types';
 import TouchableLink from '../common/TouchableLink';
 import {useETHPrice} from '../../graphql/uniQueries';
 import {toMoney} from '../../utils'
@@ -26,9 +25,7 @@ const styles = {
 
 const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
-    const dispatch = useDispatch()
     const [currentBalance,setCurrentBalance] = useState<number>(0)
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('MAINNET')
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const {data:ethPriceData, isFetching} = useETHPrice()
 
@@ -60,7 +57,7 @@ const WalletDisplay:React.FC = () => {
                     }
                 </div>
                 <div>
-                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
+                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={true}/>
                 </div>
             </div>
     )
