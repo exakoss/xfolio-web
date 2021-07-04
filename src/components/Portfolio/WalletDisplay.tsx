@@ -1,12 +1,10 @@
 import React, {useState,useEffect} from 'react'
 import {Wallet} from 'ethers'
-import {RootStateOrAny, useSelector, useDispatch} from 'react-redux';
+import {RootStateOrAny, useSelector} from 'react-redux';
 import LoadingScreen from '../LoadingScreen';
 import {getCurrentBalance} from '../../utils/ethersTools';
 import theme, {commonStyles} from '../../theme';
-import {Network} from '../../types';
 import TouchableLink from '../common/TouchableLink';
-import PopupMenu from '../PopupMenu';
 import {useETHPrice} from '../../graphql/uniQueries';
 import {toMoney} from '../../utils'
 
@@ -27,9 +25,7 @@ const styles = {
 
 const WalletDisplay:React.FC = () => {
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
-    const dispatch = useDispatch()
     const [currentBalance,setCurrentBalance] = useState<number>(0)
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const {data:ethPriceData, isFetching} = useETHPrice()
 
@@ -41,28 +37,25 @@ const WalletDisplay:React.FC = () => {
         setIsLoading(true)
         updateCurrentBalance()
         setIsLoading(false)
-    },[wallet])
+    },[wallet,ethPriceData])
 
     if (isLoading) return <LoadingScreen placeholder='Loading wallet data...'/>
     return(
             <div style={{...commonStyles.innerContainer as React.CSSProperties, justifyContent: 'space-around'}} id='innerContainer'>
-                <PopupMenu/>
                 <div>
                     <div style={{...styles.mainText as React.CSSProperties,cursor:'pointer'}}
                          onClick={() => {
                             navigator.clipboard.writeText(wallet.address)
                             alert('Wallet address copied!')
                     }}>{wallet.address.slice(0,15) + '...'}</div>
-                    <div style={styles.mainText as React.CSSProperties}>{currentBalance} ETH</div>
+                    <div style={styles.mainText as React.CSSProperties}>{(currentBalance === 0) ? currentBalance : currentBalance.toFixed(5)} ETH</div>
                     {/*//Displaying current Balance in USD*/}
-                    { !isFetching ? (
-                        //@ts-ignore
+                    { ethPriceData && (
                         <div style={styles.secondaryText as React.CSSProperties}>{toMoney(currentBalance*ethPriceData,2)}</div>
-                    ) : null
-                    }
+                    )}
                 </div>
                 <div>
-                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={(currentNetwork !== 'KOVAN')}/>
+                    <TouchableLink style={commonStyles.largeButton as React.CSSProperties} text='BRIDGE ETH' link='/main/bridgeETH' disabled={false}/>
                 </div>
             </div>
     )

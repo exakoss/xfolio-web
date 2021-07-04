@@ -77,6 +77,11 @@ const Menu:React.FC<{close:any}> = ({close}) => {
                         Watchlist
                     </NavLink>
                 </li>
+                <li style = {styles.menuListPoint}>
+                    <NavLink onClick={close} to="/main/tokenSwap">
+                        Token Swap
+                    </NavLink>
+                </li>
             </ul>
         </div>
     )

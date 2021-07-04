@@ -10,18 +10,16 @@ import {headerStyle} from '../theme';
 
 
 const Header:React.FC = () => {
-    const [currentNetwork,setCurrentNetwork] = useState<Network>('KOVAN')
+    const [currentNetwork,setCurrentNetwork] = useState<Network>('MAINNET')
     const wallet:Wallet = useSelector((state:RootStateOrAny) => state.wallet.wallet)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (wallet === undefined) {
         const updateWalletNetwork = () => {
             const updatedWallet = connectWalletToNetwork(wallet,currentNetwork)
             dispatch(setWallet(updatedWallet))
         }
         updateWalletNetwork()
-    }
     },[currentNetwork])
 
     return (
@@ -29,8 +27,11 @@ const Header:React.FC = () => {
                 <PopupMenu/>
                 <div>
                     <DropdownButton title={currentNetwork} style={headerStyle.dropdownContainer} drop='down'>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('MAINNET')}>Mainnet</Dropdown.Item>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM')}>Arbitrum</Dropdown.Item>
                         <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('KOVAN')}>Kovan</Dropdown.Item>
-                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARBITRUM_KOVAN')}>Arbitrum Kovan</Dropdown.Item>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('RINKEBY')}>Rinkeby</Dropdown.Item>
+                        <Dropdown.Item as="button"  onClick={() => setCurrentNetwork('ARB_RINKEBY')}>ARB_Rinkeby</Dropdown.Item>
                     </DropdownButton>
                 </div>
             </div>

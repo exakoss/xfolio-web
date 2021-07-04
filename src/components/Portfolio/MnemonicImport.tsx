@@ -25,7 +25,7 @@ const MnemonicImport:React.FC = () => {
 
     const onSubmit = () => {
         setIsLoading(true)
-        const newWallet = createWalletFromMnemonic(currentPhrase,'KOVAN')
+        const newWallet = createWalletFromMnemonic(currentPhrase,'MAINNET')
         dispatch(setWallet(newWallet))
         history.push('/authorization/setPassword')
     }
@@ -36,7 +36,7 @@ const MnemonicImport:React.FC = () => {
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit} style={commonStyles.outerContainer as React.CSSProperties}>
                         <div style={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
-                            <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge, 
+                            <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge,
                                 fontFamily:theme.fontLink.fontFamilyLabel}}>Type in the mnemonic phrase:
                             </h2>
                             <input

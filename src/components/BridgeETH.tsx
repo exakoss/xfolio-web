@@ -7,7 +7,7 @@ import {useHistory} from 'react-router';
 import TouchableLink from './common/TouchableLink';
 import {RootStateOrAny, useSelector} from 'react-redux';
 import {Wallet} from 'ethers';
-import {ETH_ERC20_BRIDGE, ARB_TOKEN_BRIDGE} from '../constants';
+import {L1_GATEWAY_ROUTER,L2_GATEWAY_ROUTER} from '../constants';
 import {connectWalletToNetwork, getCurrentBalance} from '../utils/ethersTools';
 import {parseEther} from 'ethers/lib/utils';
 
@@ -23,34 +23,35 @@ const BridgeETH:React.FC = () => {
             setCurrentBalance(newBalance)
         }
         updateCurrentBalance()
-    },[])
+    },[wallet])
 
     const handleSubmit = async (values: { quantity: string }) => {
         console.log(values.quantity)
-        const l2Wallet:Wallet = connectWalletToNetwork(wallet,'ARBITRUM_KOVAN')
-        const l2WalletAddress = await l2Wallet.getAddress()
+        const l1Wallet = connectWalletToNetwork(wallet,'RINKEBY')
+        const l2Wallet:Wallet = connectWalletToNetwork(wallet,'ARB_RINKEBY')
+        // const l2WalletAddress = await l2Wallet.getAddress()
         const bridge = new Bridge(
-            ETH_ERC20_BRIDGE,
-            ARB_TOKEN_BRIDGE,
-            wallet,
+            L1_GATEWAY_ROUTER,
+            L2_GATEWAY_ROUTER,
+            l1Wallet,
             l2Wallet
         )
-        const result = await bridge.depositETH(parseEther(String(values.quantity)),l2WalletAddress)
+        const result = await bridge.depositETH(parseEther(String(values.quantity)))
         console.log(result)
-        history.push('/walletDisplay')
+        history.goBack()
     }
 
     return(
                 <Formik initialValues={{quantity:'0.1'}} onSubmit={handleSubmit}>
                     <Form style ={{...commonStyles.innerContainer as React.CSSProperties, justifyContent: 'space-around'}}>
                         <div style={{display:'flex',flexDirection:'column', textAlign:'center'}}>
-                            <h2 style={{color:theme.colors.textWhite, fontFamily:theme.fontLink.fontFamilyText, 
+                            <h2 style={{color:theme.colors.textWhite, fontFamily:theme.fontLink.fontFamilyText,
                                 fontSize:theme.fontsize.normal}}>Your are about to bridge:
                             </h2>
-                            <Field name='quantity' placeholder='Input ETH amount here' type='number' 
+                            <Field name='quantity' placeholder='Input ETH amount here' type='number'
                                 step='0.1' style={{...commonStyles.textBox as React.CSSProperties, width: '300px'}}
                             />
-                            <h4 style={{color:theme.colors.textSecondary, fontFamily:theme.fontLink.fontFamilyText, 
+                            <h4 style={{color:theme.colors.textSecondary, fontFamily:theme.fontLink.fontFamilyText,
                                 fontSize:theme.fontsize.normal}}>Total ETH Avalible: {currentBalance}
                             </h4>
                         </div>

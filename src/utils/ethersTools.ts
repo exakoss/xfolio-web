@@ -1,5 +1,11 @@
 import {ethers, Wallet} from 'ethers'
-import {KOVAN_API_KEY,MAINNET_API_KEY,ARBITRUM_KOVAN_API_KEY} from '../constants';
+import {
+    KOVAN_API_KEY,
+    MAINNET_API_KEY,
+    ARBITRUM_API_KEY,
+    RINKEBY_API_KEY,
+    ARBITRUM_RINKEBY_API_KEY
+} from '../constants';
 import {Network} from '../types';
 
 export const createRandomWallet = ():Wallet => {
@@ -8,12 +14,16 @@ export const createRandomWallet = ():Wallet => {
 
 export const createProvider = (networkName:Network) => {
     switch (networkName) {
-        case 'ARBITRUM_KOVAN':
-            return new ethers.providers.JsonRpcProvider(ARBITRUM_KOVAN_API_KEY)
         case 'KOVAN':
             return new ethers.providers.JsonRpcProvider(KOVAN_API_KEY)
         case 'MAINNET':
             return new ethers.providers.JsonRpcProvider(MAINNET_API_KEY)
+        case 'ARBITRUM':
+            return new ethers.providers.JsonRpcProvider(ARBITRUM_API_KEY)
+        case 'RINKEBY':
+            return new ethers.providers.JsonRpcProvider(RINKEBY_API_KEY)
+        case 'ARB_RINKEBY':
+            return new ethers.providers.JsonRpcProvider(ARBITRUM_RINKEBY_API_KEY)
     }
 }
 

@@ -4,7 +4,7 @@ import {Synth} from '@synthetixio/js';
 //Crypto entities
 export type Id = string
 export type DataSource = 'UNI' | 'SYNTH'
-export type Network = 'KOVAN' | 'ARBITRUM_KOVAN' | 'MAINNET'
+export type Network = 'KOVAN' | 'ARBITRUM' | 'MAINNET' | 'RINKEBY' | 'ARB_RINKEBY'
 export type GetBlockProp = 'ONE_DAY' | 'TWO_DAYS' | 'CURRENT_DAY'
 
 export interface IdEntry {

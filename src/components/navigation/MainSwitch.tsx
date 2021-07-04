@@ -4,8 +4,8 @@ import BridgeETH from '../BridgeETH'
 import WalletDisplay from '../Portfolio/WalletDisplay'
 import Watchlist from '../Watchlist'
 import Search from '../Search'
+import TokenSwap from '../TokenSwap'
 import Header from '../Header'
-
 
 const MainSwitch:React.FC = () => {
     const {path} = useRouteMatch()
@@ -23,6 +23,9 @@ const MainSwitch:React.FC = () => {
                 </Route>
                 <Route path={`${path}/search`}>
                     <Search/>
+                </Route>
+                <Route path={`${path}/tokenSwap`}>
+                    <TokenSwap/>
                 </Route>
                 <Route path={`${path}/bridgeETH`}>
                     <BridgeETH/>

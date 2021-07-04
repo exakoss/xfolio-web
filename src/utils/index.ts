@@ -1,7 +1,7 @@
 import {TokenListEntry, BasicToken, TokenEntry, Bundle, WatchlistEntry} from '../types';
 import {GetBlockProp} from '../types'
 import dayjs from 'dayjs';
-import { ethers } from 'ethers';
+import {ethers} from 'ethers'
 
 export const getTimestamp = (period:GetBlockProp):number => {
     const utcCurrentTime = dayjs()
@@ -85,7 +85,7 @@ export const toMoney = (value:number,position:number):string => {
         position = 2
     } else if(value >= 100) {
         position = 0
-    } 
+    }
     return '$' + value.toFixed(position).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 }
 
