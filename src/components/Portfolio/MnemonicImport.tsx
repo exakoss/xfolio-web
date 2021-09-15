@@ -8,6 +8,7 @@ import {useHistory} from 'react-router';
 import {setWallet} from '../../reducers/walletReducer';
 import {Button} from 'react-bootstrap';
 import theme, {commonStyles} from '../../theme';
+import BackButton from '../BackButton'
 
 const MnemonicImport:React.FC = () => {
     const dispatch = useDispatch()
@@ -32,9 +33,11 @@ const MnemonicImport:React.FC = () => {
 
     if (isLoading) return <LoadingScreen placeholder='Generating a wallet...'/>
     return(
+        <React.Fragment>
+            <BackButton/>
             <Formik initialValues={{phraseWord:''}} onSubmit={onSubmit}>
                 {({handleSubmit}) => (
-                    <form onSubmit={handleSubmit} style={commonStyles.outerContainer as React.CSSProperties}>
+                    <form onSubmit={handleSubmit} style={{...commonStyles.outerContainer as React.CSSProperties, justifyContent:'space-evenly'}}>
                         <div style={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                             <h2 style={{textAlign:'center',color:theme.colors.textWhite, fontSize:theme.fontsize.extraLarge,
                                 fontFamily:theme.fontLink.fontFamilyLabel}}>Type in the mnemonic phrase:
@@ -66,6 +69,7 @@ const MnemonicImport:React.FC = () => {
                     </form>
                 )}
             </Formik>
+        </React.Fragment>
     )
 }
 

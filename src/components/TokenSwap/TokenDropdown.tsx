@@ -2,9 +2,10 @@ import React, {Dispatch, SetStateAction, useState} from 'react'
 import SimpleTokenList, {SimpleTokenListTile} from './SimpleTokenList'
 import {Formik,Field,Form} from 'formik'
 import {TokenListEntry} from '../../types'
-import {Dropdown} from 'react-bootstrap'
+import {Accordion, Button, Card, Dropdown} from 'react-bootstrap'
 import theme, {commonStyles} from '../../theme'
 import {useUniTokensByNameForTokenlist} from '../../graphql/uniQueries'
+import {Search} from 'react-bootstrap-icons'
 
 interface SimpleTokenSearchProps extends React.ComponentPropsWithoutRef<'div'> {
     setToken: Dispatch<SetStateAction<TokenListEntry>>
@@ -21,7 +22,7 @@ const SimpleTokenSearch = React.forwardRef<HTMLDivElement, SimpleTokenSearchProp
     return(
         <div ref={ref} style={{backgroundColor: theme.colors.background}}>
             <Formik initialValues={{filterValue:''}} onSubmit={() => {}}>
-                <Form style={{...commonStyles.flexColumn as React.CSSProperties, alignItems:'center', width:'220px'}}>
+                <Form style={{...commonStyles.flexColumn as React.CSSProperties, alignItems:'center', width:'auto'}}>
                     <Field name='filterValue' placeholder='Input ticker here...'
                            type='text' style={{fontSize: theme.fontsize.small, marginBottom:theme.distance.tiny}}
                            onKeyUp={handleChange}
@@ -33,38 +34,32 @@ const SimpleTokenSearch = React.forwardRef<HTMLDivElement, SimpleTokenSearchProp
     )
 })
 
+
+
 const TokenDropdown:React.FC<{token:TokenListEntry,setToken: Dispatch<SetStateAction<TokenListEntry>>}> = ({token,setToken}) => {
+    const [fromQuantity,setFromQuantity] = useState<number>(1)
+    const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>): void => {
+        setFromQuantity(Number(e.target.value))
+    }
+    
     return(
-        <div style={{marginBottom:theme.distance.tiny}}>
-            <Dropdown>
-                <style type="text/css">
-                    {`
-                    .dropdown-menu {
-                        padding: 0;
-                    }
-                    .btn-primary {
-                        border-color: #000;
-                        background-color: #333;  
-                    }
-                    .btn-primary.focus,
-                    .btn-primary:focus,
-                    .btn-primary:hover,
-                    .btn-primary:active,
-                    .btn-primary:not(:disabled):not(.disabled).active,
-                    .btn-primary:not(:disabled):not(.disabled):active,
-                    .show>.btn-primary.dropdown-toggle {
-                        background-color: #333;
-                     }
-                    `}
-                </style>
-                <Dropdown.Toggle>
-                    <SimpleTokenListTile token={token}/>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <SimpleTokenSearch setToken={setToken}/>
-                </Dropdown.Menu>
-            </Dropdown>
-        </div>
+        
+            <Accordion>
+                <Card style={{ width:'280px', borderRadius:'15px'}}>
+                    <Card.Header style={{display: 'flex', flexDirection: 'row', paddingLeft: '5px', paddingRight: '5px', 
+                    background:theme.colors.white, justifyContent: 'space-between',alignItems:'center',height:'50px'}}>
+                        <SimpleTokenListTile token={token}/>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                          <Search/>
+                        </Accordion.Toggle>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey="0">
+                        <Card.Body style={{padding:'5px', height: 'auto'}}>
+                        <SimpleTokenSearch setToken={setToken}/>
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Accordion>
     )
 }
 

@@ -11,7 +11,8 @@ const mainStyle = {
     position: 'relative',
     height: '500px',
     width: '400px',
-    backgroundColor: theme.colors.background,
+   // backgroundColor: theme.colors.background,
+    background: 'linear-gradient(180deg, black, #1b436d)'
 }
 
 const Main:React.FC = () => {

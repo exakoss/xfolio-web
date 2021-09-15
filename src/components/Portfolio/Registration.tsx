@@ -10,10 +10,7 @@ const Registration:React.FC = () => {
     return(
         <div className='registration' style={commonStyles.outerContainer as React.CSSProperties}>
             <img src={xfolioLogo} style={{width:'220px', height:'220px'}} alt='Xfolio logo'/>
-            <div    style={{display: 'flex',
-                            justifyContent: 'center',
-                            flexDirection: 'column',
-                            alignItems: 'center'}}>
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                 <TouchableLink text='Log in' link='/authorization/login' disabled={(jsonSeed === '')} 
                     style={commonStyles.largeButton}
                 /> 

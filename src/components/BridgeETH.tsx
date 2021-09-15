@@ -52,11 +52,11 @@ const BridgeETH:React.FC = () => {
                                 step='0.1' style={{...commonStyles.textBox as React.CSSProperties, width: '300px'}}
                             />
                             <h4 style={{color:theme.colors.textSecondary, fontFamily:theme.fontLink.fontFamilyText,
-                                fontSize:theme.fontsize.normal}}>Total ETH Avalible: {currentBalance}
+                                fontSize:theme.fontsize.normal}}>Total ETH Avalible: {(currentBalance === 0) ? currentBalance : currentBalance.toFixed(5)}
                             </h4>
                         </div>
                         <div style={{display:'flex',flexDirection:'column'}}>
-                            <TouchableLink text='Reject' link='/main' style={{...commonStyles.largeButton as React.CSSProperties, backgroundColor: theme.colors.lightRed}}/>
+                            <TouchableLink text='Reject' link='/main' style={{...commonStyles.largeButton as React.CSSProperties, background: theme.colors.rejectColor, borderWidth: '0px', boxShadow:'none'}}/>
                             <Button type='submit' style={commonStyles.largeButton as React.CSSProperties}>Confirm</Button>
                         </div>
                     </Form>

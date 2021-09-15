@@ -5,6 +5,7 @@ import theme, {commonStyles} from '../../theme'
 import LoadingScreen from '../LoadingScreen'
 import {Dropdown} from 'react-bootstrap'
 
+
 interface SimpleTokenListTileProps extends React.ComponentPropsWithoutRef<'div'> {
     token: TokenListEntry
 }
@@ -18,11 +19,12 @@ interface SimpleTokenListProps extends React.ComponentPropsWithoutRef<'div'> {
 
 //SimpleTokenList and its children are shortened TokenList components that are being used for Dropdown in TokenSwap
 export const SimpleTokenListTile = React.forwardRef<HTMLDivElement, SimpleTokenListTileProps>(({token},ref) => {
+
     return(
-        <div ref={ref} style={{...commonStyles.tile as React.CSSProperties,width:"200px", justifyContent: 'space-between'}}>
+        <div ref={ref} style={{...commonStyles.tile as React.CSSProperties,width:"240px", justifyContent: 'space-between', borderBottom: '0px solid'}}>
             <div style={{display:'flex',flexDirection:'row'}}>
                 <CurrencyLogo token={token}/>
-                <div style={commonStyles.tileText}>{token.name}</div>
+                <div style={{...commonStyles.tileText, marginLeft:'15px', color:'black'}}>{token.name}</div>
             </div>
             <div style={commonStyles.nameText}>{token.description}</div>
         </div>
@@ -39,7 +41,7 @@ const SimpleTokenList = React.forwardRef<HTMLDivElement, SimpleTokenListProps>((
         </div>
     </div>
     return(
-        <div style={{overflowY:'auto', overflowX:'hidden', width:"220px", maxHeight:'220px'}} ref={ref}>
+        <div style={{overflowY:'auto', overflowX:'hidden', width:"auto", maxHeight:'220px'}} ref={ref}>
             {props.tokens.map(token => {
                 const tokenKey = token.description.concat(String(Math.random()))
                 // Since keys have to be unique, we concat a random float to the token.description to ensure the uniqueness
