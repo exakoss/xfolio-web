@@ -6,7 +6,9 @@ import {getCurrentBalance} from '../../utils/ethersTools';
 import theme, {commonStyles} from '../../theme';
 import TouchableLink from '../common/TouchableLink';
 import {useETHPrice} from '../../graphql/uniQueries';
-import {toMoney} from '../../utils'
+import {toMoney} from '../../utils';
+// @ts-ignore
+import Identicon from 'react-identicons';
 
 const styles = {
     mainText: {
@@ -43,6 +45,9 @@ const WalletDisplay:React.FC = () => {
     return(
             <div style={{...commonStyles.innerContainer as React.CSSProperties, justifyContent: 'space-around'}} id='innerContainer'>
                 <div>
+                    <div style={{display:'flex', justifyContent: 'center'}}>
+                        <Identicon string={wallet.address} size={60}/>
+                    </div>
                     <div style={{...commonStyles.mainText as React.CSSProperties,cursor:'pointer'}}
                          onClick={() => {
                             navigator.clipboard.writeText(wallet.address).then(() => {
